@@ -53,6 +53,14 @@ Begin VB.Form FrmExemplo
       TabIndex        =   1
       Top             =   0
       Width           =   5775
+      Begin VB.CommandButton Command1 
+         Caption         =   "Command1"
+         Height          =   315
+         Left            =   3240
+         TabIndex        =   35
+         Top             =   3720
+         Width           =   1335
+      End
       Begin VB.Frame gbImpressao 
          Caption         =   "Impressão do Dacte"
          BeginProperty Font 
@@ -432,6 +440,10 @@ Private Function GetCurrentTimeBias() As String
    GetCurrentTimeBias = tmp
    
 End Function
+
+Private Sub Command1_Click()
+  mmXML.Text = CTe.ConsultarDistribuicaoDFe("41", CTe.CNPJ, "000000000000000", 0)
+End Sub
 
 'Inicialização
 Private Sub Form_Initialize()
