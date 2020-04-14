@@ -357,14 +357,13 @@ object frmCTePrincipal: TfrmCTePrincipal
       Top = 23
       Width = 149
       Height = 21
-      Caption = 'Limpar Ambiente'
+      Caption = 'Imprimir DACTE'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clRed
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
-      Visible = False
       OnClick = SpeedButton1Click
     end
     object edtCNPJEmitente: TEdit
@@ -517,7 +516,7 @@ object frmCTePrincipal: TfrmCTePrincipal
       Top = 56
       Width = 501
       Height = 328
-      ActivePage = tsConsulta
+      ActivePage = tsXML
       Align = alClient
       TabOrder = 1
       object tsTX2: TTabSheet
@@ -575,7 +574,6 @@ object frmCTePrincipal: TfrmCTePrincipal
             Width = 489
             Height = 114
             Align = alClient
-            ReadOnly = True
             TabOrder = 0
           end
         end

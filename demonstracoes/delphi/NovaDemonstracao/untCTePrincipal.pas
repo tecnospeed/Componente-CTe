@@ -1134,16 +1134,18 @@ end;
 
 procedure TfrmCTePrincipal.SpeedButton1Click(Sender: TObject);
 begin
-  if Application.MessageBox('Efetuar a limpeza de todo o ambiente de homologação no servidor do Reinf?','Stop',mb_yesno + mb_iconquestion) = id_yes then
-  begin
-    sbPreencherCompClick(Owner);
+//  if Application.MessageBox('Efetuar a limpeza de todo o ambiente de homologação no servidor do Reinf?','Stop',mb_yesno + mb_iconquestion) = id_yes then
+//  begin
+//    sbPreencherCompClick(Owner);
+//
+//    PreencherTX2;
+//
+//    sbGerarXMLClick(Owner);
+//    sbAssinarClick(Owner);
+//    sbEnviarClick(Owner);
+//  end;
 
-    PreencherTX2;
-
-    sbGerarXMLClick(Owner);
-    sbAssinarClick(Owner);
-    sbEnviarClick(Owner);
-  end;
+  vCTe.ImprimirDACTE(mmXMLAssinado.Text, '', '');
 end;
 
 procedure TfrmCTePrincipal.SomenteNumero(Sender: TObject; var Key: Char);
