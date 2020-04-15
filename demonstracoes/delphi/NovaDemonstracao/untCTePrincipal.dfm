@@ -350,6 +350,7 @@ object frmCTePrincipal: TfrmCTePrincipal
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
+      Visible = False
       OnClick = sbLimparClick
     end
     object SpeedButton1: TSpeedButton
@@ -516,7 +517,7 @@ object frmCTePrincipal: TfrmCTePrincipal
       Top = 56
       Width = 501
       Height = 328
-      ActivePage = tsXML
+      ActivePage = tsExclusao
       Align = alClient
       TabOrder = 1
       object tsTX2: TTabSheet
@@ -556,7 +557,6 @@ object frmCTePrincipal: TfrmCTePrincipal
             Width = 489
             Height = 152
             Align = alClient
-            ReadOnly = True
             TabOrder = 0
           end
         end
