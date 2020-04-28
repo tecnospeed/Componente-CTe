@@ -37,9 +37,9 @@ object frmCTePrincipal: TfrmCTePrincipal
       object Label5: TLabel
         Left = 9
         Top = 14
-        Width = 109
+        Width = 49
         Height = 13
-        Caption = 'Esquemas / Templates'
+        Caption = 'Esquemas'
       end
       object Label12: TLabel
         Left = 9
@@ -48,10 +48,17 @@ object frmCTePrincipal: TfrmCTePrincipal
         Height = 13
         Caption = 'Arquivo TX2'
       end
+      object Label14: TLabel
+        Left = 231
+        Top = 14
+        Width = 49
+        Height = 13
+        Caption = 'Templates'
+      end
       object edtDirEsquemas: TEdit
         Left = 9
         Top = 30
-        Width = 436
+        Width = 216
         Height = 21
         ReadOnly = True
         TabOrder = 0
@@ -63,6 +70,14 @@ object frmCTePrincipal: TfrmCTePrincipal
         Height = 21
         ReadOnly = True
         TabOrder = 1
+      end
+      object edtDirTemplates: TEdit
+        Left = 229
+        Top = 30
+        Width = 216
+        Height = 21
+        ReadOnly = True
+        TabOrder = 2
       end
     end
     object Panel5: TPanel

@@ -93,6 +93,8 @@ type
     edtChave: TEdit;
     edtProtocolo: TEdit;
     Label13: TLabel;
+    edtDirTemplates: TEdit;
+    Label14: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure sbPreencherCompClick(Sender: TObject);
@@ -103,7 +105,6 @@ type
     procedure sbLimparClick(Sender: TObject);
     procedure Label6Click(Sender: TObject);
     procedure sbConsultaLoteClick(Sender: TObject);
-    procedure sbConsultarEventoClick(Sender: TObject);
     procedure sbConsultarReciboClick(Sender: TObject);
     procedure sbExcluirClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -196,7 +197,7 @@ Begin
    End;
  
    vDigito := ( ( vValor * 10 ) mod 11 );
- 
+
    If vDigito >= 10 Then
       vDigito := 0;
  
@@ -206,11 +207,12 @@ End;
 
 procedure TfrmCTePrincipal.CarregarDadosReinf;
 begin
-  edtCNPJ.Text             := vArquivoIni.ReadString('PRINCIPAL','CNPJSH','');
-  edtTOKEN.Text            := vArquivoIni.ReadString('PRINCIPAL','TOKENSH','');
-  edtCNPJEmitente.Text     := vArquivoIni.ReadString('PRINCIPAL','CNPJEMISSOR','');
+  edtCNPJ.Text             := vArquivoIni.ReadString('CTE','CNPJ','');
+  edtTOKEN.Text            := vArquivoIni.ReadString('CTE','TOKENSH','');
+  edtCNPJEmitente.Text     := vArquivoIni.ReadString('CTE','CNPJ','');
 
-  edtDirEsquemas.Text      := vArquivoIni.ReadString('DIRETORIOS','ESQUEMAS','');
+  edtDirEsquemas.Text      := vArquivoIni.ReadString('CTE','DiretorioEsquemas','');
+  edtDirTemplates.Text     := vArquivoIni.ReadString('CTE','DiretorioTemplates','');
   edtArqTX2.Text           := GetCurrentDir + '\Arq.TX2';
   cbVersao.Items.Text      := vCTe.Versao;
 
@@ -1135,16 +1137,18 @@ end;
 
 procedure TfrmCTePrincipal.SpeedButton1Click(Sender: TObject);
 begin
-  if Application.MessageBox('Efetuar a limpeza de todo o ambiente de homologação no servidor do Reinf?','Stop',mb_yesno + mb_iconquestion) = id_yes then
-  begin
-    sbPreencherCompClick(Owner);
+//  if Application.MessageBox('Efetuar a limpeza de todo o ambiente de homologação no servidor do Reinf?','Stop',mb_yesno + mb_iconquestion) = id_yes then
+//  begin
+//    sbPreencherCompClick(Owner);
+//
+//    PreencherTX2;
+//
+//    sbGerarXMLClick(Owner);
+//    sbAssinarClick(Owner);
+//    sbEnviarClick(Owner);
+//  end;
 
-    PreencherTX2;
-
-    sbGerarXMLClick(Owner);
-    sbAssinarClick(Owner);
-    sbEnviarClick(Owner);
-  end;
+  vCTe.ImprimirDACTE(mmXMLAssinado.Text, '', '');
 end;
 
 procedure TfrmCTePrincipal.SomenteNumero(Sender: TObject; var Key: Char);

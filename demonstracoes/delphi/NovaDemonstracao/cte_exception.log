@@ -1,14 +1,0 @@
-[13/04/2020 20:01:42:589] 4588 - EspdCTeDataSetError : Comando inválido: "incluirinfCTe"Linha 1
-[13/04/2020 20:36:24:593] 11380 - EspdCTeDataSetError : Favor preencher com dados somente um modal
-[13/04/2020 20:37:39:935] 4728 - EspdCTeDataSetError : Favor preencher com dados somente um modal
-[13/04/2020 20:38:46:778] 4728 - EspdCTeDataSetError : Favor preencher com dados somente um modal
-[13/04/2020 20:39:16:848] 4728 - EspdCTeDataSetError : Favor preencher com dados somente um modal
-[13/04/2020 20:40:59:529] 4728 - EspdCTeDataSetError : Favor preencher com dados somente um modal
-[13/04/2020 20:43:04:008] 4728 - EspdCTeDataSetError : Favor preencher com dados somente um modal
-[13/04/2020 21:10:08:624] 14012 - EspdCTeTemplateNotFoundException : Arquivo de template não encontrado: D:\Projetos\CTe\demonstracoes\delphi\NovaDemonstracao\Templates\3.00a\PR\assinar_ct.xml
-[14/04/2020 16:20:32:828] 15724 - EspdCTeException : could not load xml Falha de validação: documento não contém exatamente um nó raiz.
- []
-[14/04/2020 16:26:44:584] 15724 - EspdCTeCheckParams : O campo Serie:  deve ser um número Inteiro
-[14/04/2020 16:41:23:996] 15724 - EspdCTeCheckParams : O campo Serie:  deve ser um número Inteiro
-[14/04/2020 17:05:58:933] 15724 - EspdCTeException : 'UND' is not a valid integer value
-[14/04/2020 17:30:32:810] 15724 - EspdCTeException : 'UND' is not a valid integer value
