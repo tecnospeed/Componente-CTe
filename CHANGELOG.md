@@ -1,3 +1,7 @@
+## [12.1.60.5246]
+**Correções**
+  DCIT-839 - corrigido Codificação XML retorno do método TratarXMLRetornoDFe para UTF8
+
 ## [12.1.60.5245]
 **Novidades**
   DCIT-778 - Novo license TecnoAccount
