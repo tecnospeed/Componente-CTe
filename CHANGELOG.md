@@ -1,22 +1,34 @@
+## [12.1.60.5253]
+**Novidades**
+
+DCIT-1056 - Nova propriedade UseSecureBlackBox para envio de e-mail com SBB.
+
+DCIT-888 - Adicionadas as propriedades CnpjSoftwareHouse, TokenSoftwareHouse. Adicionada a propriedade DiagnosticMode no arquivo ini.
 
 ## [12.1.60.5253]
 
              
 **Correções**
   DCIT-929  - corrigido Erro na impressão de unidade de medida na DACTE.
+  
   DCIT-1002 - correção na propriedade ModeloRetrato/ModeloPaisagem quando caminho informado é o mesmo do DiretorioTemplates
 
 **Novidades**
+  
   DCIT-954 - Alterar forma de configurar o modo SVC, agora é necessário informar se é SVCRS ou SVCSP.
              Para informações sobre envio com SVC acesse https://atendimento.tecnospeed.com.br/hc/pt-br/articles/360017029413
 			 
   DCIT-992 - Adicionado campos LITRAGEM e MMBTU nos DACTE (Retrato.rtm/RetratoA5.rtm/Paisagem.rtm)
+  
   DCIT-1005 - Alterar forma de configurar o modo EPEC para utilizar os ini's: cteServidoresProd.ini e cteServidoresHom.ini.
+  
   DCIT-954  - Alterar forma de configurar o modo SVC, agora é necessário informar se é SVCRS ou SVCSP.
+  
               Para informações sobre envio com SVC acesse https://atendimento.tecnospeed.com.br/hc/pt-br/articles/360017029413
 
 ## [12.1.60.5246]
 **Correções**
+
   DCIT-839 - corrigido Codificação XML retorno do método TratarXMLRetornoDFe para UTF8
 
 ## [12.1.60.5245]
