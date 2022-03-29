@@ -1,4 +1,4 @@
-## [12.1.60.5253]
+## [12.1.60.5261]
 **Novidades**
 
 DCIT-1056 - Nova propriedade UseSecureBlackBox para envio de e-mail com SBB.
