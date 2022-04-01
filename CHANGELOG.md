@@ -1,3 +1,7 @@
+## [12.1.60.5282]
+**Novidades**
+  DCIT-1061 - Adicionadas as propriedades de E-mail: QtdeTentativasEmail e UseTLS.
+
 ## [12.1.60.5261]
 **Novidades**
 
