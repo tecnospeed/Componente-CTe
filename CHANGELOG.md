@@ -1,5 +1,11 @@
+## [12.1.60.5285]
+**Correções**
+
+  DSML-43 - Correção da exceção: 'Unable to create directory' ao utilizar componente dropando.
+
 ## [12.1.60.5282]
 **Novidades**
+
   DCIT-1061 - Adicionadas as propriedades de E-mail: QtdeTentativasEmail e UseTLS.
 
 ## [12.1.60.5261]
