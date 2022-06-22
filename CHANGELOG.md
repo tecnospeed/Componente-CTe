@@ -1,3 +1,10 @@
+## [12.1.60.5292]
+**Correções**
+ - DSML-126 - Método ConfigurarSoftwareHouse no envio do desacordo.
+
+**Novidades**
+ - DSP4G-49 Componente - CTe - NT 2022.001 v. 1.00 e 1.01 - 06/22
+
 ## [12.1.60.5285]
 **Correções**
 
