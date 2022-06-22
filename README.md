@@ -5,4 +5,4 @@ Atualmente, contamos com o componente CTe, uma biblioteca para facilitar a emiss
 ![image](https://user-images.githubusercontent.com/93938979/142222636-7723d8d1-774b-4c9e-8816-fe1aef67bb5a.png)
 
 
-**Para baixar a versão Trial, [clique aqui](https://tecnospeed-trial.s3.sa-east-1.amazonaws.com/setup_cte_tecnoaccount_12.1.60.5285.exe "Baixar o Componente GRNe Trial")**.
+**Para baixar a versão Trial, [clique aqui](https://tecnospeed-trial.s3.sa-east-1.amazonaws.com/setup_cte_tecnoaccount_12.1.60.5292.exe "Baixar o Componente CTe Trial")**.
