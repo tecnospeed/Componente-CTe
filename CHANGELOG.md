@@ -1,3 +1,7 @@
+## [12.1.60.5296]
+**Correções**
+ - DSML-210 : Erro ao cancelar CTe com Tecnoaccount
+
 ## [12.1.60.5292]
 **Correções**
  - DSML-126 - Método ConfigurarSoftwareHouse no envio do desacordo.
