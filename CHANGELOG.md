@@ -1,38 +1,44 @@
+
+## [12.1.60.5300]
+**Novidades**
+* DSP4G-66 - Adicionado método TestarEmailConfig para validar as configurações de email, para mais informações acesse: https://atendimento.tecnospeed.com.br/hc/pt-br/articles/8047751646487
+* DSP4G-394 - Adicionado ao pacote de instalação do componente o arquivo "IDs_LIBs_CTe.ini" contendo os ID´s das OCXs.
+* DSP4G-220 - Migrando os arquivos de templates para implementação "hardcoded".
+
+**Correções:**
+* DSP4G-345 - Implementado recurso de validação das chaves de NFe´s transportadas. O recurso funciona ao ativar a propriedade "ValidarEsquemaAntesEnvio".
+* DSP4G-143 - Adicionado no menu do Windows a opção de desinstalação do pacote de dependências.
+
 ## [12.1.60.5296]
 **Correções**
  - DSML-210 : Erro ao cancelar CTe com Tecnoaccount
 
 ## [12.1.60.5292]
 **Correções**
- - DSML-126 - Método ConfigurarSoftwareHouse no envio do desacordo.
+ * DSML-126 - Método ConfigurarSoftwareHouse no envio do desacordo.
 
 **Novidades**
- - DSP4G-49 Componente - CTe - NT 2022.001 v. 1.00 e 1.01 - 06/22
+ * DSP4G-49 Componente - CTe - NT 2022.001 v. 1.00 e 1.01 - 06/22
 
 ## [12.1.60.5285]
 **Correções**
-
-  DSML-43 - Correção da exceção: 'Unable to create directory' ao utilizar componente dropando.
+ * DSML-43 - Correção da exceção: 'Unable to create directory' ao utilizar componente dropando.
 
 ## [12.1.60.5282]
 **Novidades**
-
-  DCIT-1061 - Adicionadas as propriedades de E-mail: QtdeTentativasEmail e UseTLS.
+ * DCIT-1061 - Adicionadas as propriedades de E-mail: QtdeTentativasEmail e UseTLS.
 
 ## [12.1.60.5261]
 **Novidades**
+* DCIT-1056 - Nova propriedade UseSecureBlackBox para envio de e-mail com SBB.
 
-DCIT-1056 - Nova propriedade UseSecureBlackBox para envio de e-mail com SBB.
+* DCIT-888 - Adicionadas as propriedades CnpjSoftwareHouse, TokenSoftwareHouse. Adicionada a propriedade DiagnosticMode no arquivo ini.
 
-DCIT-888 - Adicionadas as propriedades CnpjSoftwareHouse, TokenSoftwareHouse. Adicionada a propriedade DiagnosticMode no arquivo ini.
-
-## [12.1.60.5253]
-
-             
+## [12.1.60.5253]        
 **Correções**
-  DCIT-929  - corrigido Erro na impressão de unidade de medida na DACTE.
+*  DCIT-929  - corrigido Erro na impressão de unidade de medida na DACTE.
   
-  DCIT-1002 - correção na propriedade ModeloRetrato/ModeloPaisagem quando caminho informado é o mesmo do DiretorioTemplates
+*  DCIT-1002 - correção na propriedade ModeloRetrato/ModeloPaisagem quando caminho informado é o mesmo do DiretorioTemplates
 
 **Novidades**
   
