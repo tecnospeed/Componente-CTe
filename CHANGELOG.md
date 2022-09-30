@@ -1,4 +1,10 @@
-﻿## [12.1.60.5305]
+﻿## [12.1.60.5307]
+
+**Correções**
+- DSML-163 -  movendo  a chamada do método AtualizaDadosCTeEventos para os eventos
+- DSML-358 - Impressão e exportação de CTE cancelado
+
+## [12.1.60.5305]
 
 - DSP4G-452 - adicionado propriedade CaracteresRemoverAcentos. Para mais detalhes acesse: https://atendimento.tecnospeed.com.br/hc/pt-br/articles/360006200994
 
@@ -88,4 +94,5 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
