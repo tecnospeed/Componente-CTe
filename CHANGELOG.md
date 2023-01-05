@@ -1,4 +1,16 @@
-﻿## [12.1.60.5307]
+﻿## [12.1.60.5315]
+
+#leiame
+
+**Novidades**
+* DSP4G-786 - Compatibilizado com atualizações do componente indy
+
+**Correções**
+* DSML-374 - correção do congelamento da aplicação ao imprimir uma nota utilizando a impressora, Microsoft Print to PDF, com C#.
+* DSML-438 - Correção no modelo retrato.rtm e paisagem.rtm da versão 3.00 e 3.00a
+* DSML-449 - CTe O arquivo de servidores informado não existe:C:\nodejs\xteServidoresProd.ini
+
+## [12.1.60.5307]
 
 **Correções**
 - DSML-163 -  movendo  a chamada do método AtualizaDadosCTeEventos para os eventos
@@ -94,5 +106,6 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
