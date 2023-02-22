@@ -1,4 +1,8 @@
-﻿## [12.1.60.5315]
+﻿## [12.1.60.5317]
+
+* Corre&ccedil;&otilde;es e melhorias diversos.
+
+## [12.1.60.5315]
 
 #leiame
 
@@ -106,6 +110,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
