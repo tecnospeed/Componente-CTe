@@ -1,6 +1,7 @@
 ﻿## [12.1.60.5317]
 
-* Corre&ccedil;&otilde;es e melhorias diversos.
+**Correções**
+ DSML-484 - Dependências - Nome do produto após instalação.
 
 ## [12.1.60.5315]
 
