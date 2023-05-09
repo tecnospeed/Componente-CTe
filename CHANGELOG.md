@@ -1,4 +1,9 @@
-﻿## [12.1.60.5317]
+﻿## [12.1.61.2]
+
+**Novidades**
+* DSML-600 - implementação da nota técnica 2023.001
+
+## [12.1.60.5317]
 
 **Correções**
 * DSML-484 - Dependências - Nome do produto após instalação.
@@ -111,6 +116,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
