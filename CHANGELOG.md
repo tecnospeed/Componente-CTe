@@ -1,4 +1,13 @@
-﻿## [12.1.61.2]
+﻿## [12.1.62.16]
+
+**Novidades**
+
+* DSML-696 - implementação do MOC versão 4.00;
+* DSML-742 - novos web services de homologação das uf's PR, MG e MT versão 4.00;
+* DSML-597 - Implementação do evento de Insucesso de Entrega (Envio e Cancelamento)
+* DSML-781 - criação do grupo infCteComp versão 4.00;
+
+## [12.1.61.2]
 
 **Novidades**
 * DSML-600 - implementação da nota técnica 2023.001
@@ -116,6 +125,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
