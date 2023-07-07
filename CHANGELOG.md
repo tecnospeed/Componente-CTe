@@ -4,7 +4,6 @@
 
 * DSML-696 - implementação do MOC versão 4.00;
 * DSML-742 - novos web services de homologação das uf's PR, MG e MT versão 4.00;
-* DSML-597 - Implementação do evento de Insucesso de Entrega (Envio e Cancelamento)
 * DSML-781 - criação do grupo infCteComp versão 4.00;
 
 ## [12.1.61.2]
