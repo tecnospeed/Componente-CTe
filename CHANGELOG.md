@@ -1,6 +1,10 @@
 ﻿## [12.1.63.20]
 
-* Corre&ccedil;&otilde;es e melhorias diversos.
+**Correção**
+
+* DSML-809 - Melhorias no código de barras do Retrato.rtm da versão de manual 4.00
+* DSML-815 - Correção do erro "The 'xmlns' attribute should not be specified" para o evento de Insucesso de Entrega/Cancelamento de Insucesso de Entrega no estado de São Paulo.
+* DSML-832 - remoção do namespace para eventos que utilizam a Sefaz Virtual de São Paulo: AP, PE, RR; 
 
 ## [12.1.62.16]
 
