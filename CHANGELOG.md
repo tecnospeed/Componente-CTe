@@ -1,4 +1,8 @@
-﻿## [12.1.63.20]
+﻿## [13.1.63.22]
+
+DSML-900 - Atualizado Major version do produto.
+
+## [12.1.63.20]
 
 **Correção**
 
@@ -131,6 +135,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
