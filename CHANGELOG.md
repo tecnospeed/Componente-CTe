@@ -2,7 +2,7 @@
 
 **Correções**
 
-**DSML-1006** - Correção do erro ao tentar cancelar um CTe com protocolo maior do que 15 caracteres. 
+**DSML-1006 - HOTFIX** - Correção do erro ao tentar cancelar um CTe com protocolo maior do que 15 caracteres. 
 
 ## [13.1.63.22]
 
