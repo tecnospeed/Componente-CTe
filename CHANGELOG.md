@@ -1,4 +1,14 @@
-﻿## [13.1.63.24]
+﻿## [13.1.64.27]
+
+**Leiame**
+
+**Correções**
+
+**DSML-890** - Ajustada a regra para gerar a tag IE vazia no grupo emiDocAnt apenas quando não houver valor no campo IE_286 e o campo UF_287 possuir valor.
+
+**DSML-1030** - Correção da impressão do DACTE na versão 4.00 para imprimir a(s) chave(s) do CT-e complementado.
+
+## [13.1.63.24]
 
 **Correções**
 
@@ -141,6 +151,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
