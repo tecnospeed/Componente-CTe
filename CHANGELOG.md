@@ -1,10 +1,5 @@
-﻿## [13.1.64.31]
-
-* Corre&ccedil;&otilde;es e melhorias diversos.
 
 ## [13.1.64.27]
-
-**Leiame**
 
 **Correções**
 
