@@ -1,3 +1,13 @@
+﻿## [13.1.65.32]
+
+**Novidade**
+
+DSP4G-773 - integração por arquivo no formato JSON pelo novo metodo [GerarXMLPorJson](https://atendimento.tecnospeed.com.br/hc/pt-br/articles/20797383530263)
+
+**Correções**
+
+DSML-1088 - Implementado nova funcionalidade de [`Cancelamento do Evento Prestação do Serviço em Desacordo`](https://atendimento.tecnospeed.com.br/hc/pt-br/articles/20950465752855) na versão v4.00
+
 
 ## [13.1.64.27]
 
@@ -150,6 +160,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
