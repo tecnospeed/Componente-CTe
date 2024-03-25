@@ -1,4 +1,12 @@
-﻿## [13.1.65.32]
+﻿## [13.1.66.36]
+
+**Novidades**
+
+- DSML-1014 - Compatibilizado intalador para o Delphi 12 Athenas
+
+- DSML-1106 - Compatibilização com a [Nota Técnica 2024.001](https://blog.tecnospeed.com.br/ct-e-e-ct-e-os-nota-tecnica-2024-001-novos-campos-e-alteracao-das-regras-de-validacao/?asl_highlight=Nota+T%C3%A9cnica+2024.001&p_asid=1)
+
+## [13.1.65.32]
 
 **Novidade**
 
@@ -160,6 +168,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
