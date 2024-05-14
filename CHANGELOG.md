@@ -1,4 +1,14 @@
-﻿## [13.1.66.36]
+﻿## [13.1.67.39]
+
+**Novidades**
+
+* DSML-1211 - habilitado envio EPEC para versão de manual 4.00;
+
+**Correção**
+
+* DSP4G-1505 - Movido validação do license do get da propriedade ambiente para a função que busca a url do webservice, pois só deve validar o license quando for comunicar com sefaz
+
+## [13.1.66.36]
 
 **Novidades**
 
@@ -168,6 +178,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
