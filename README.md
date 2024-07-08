@@ -5,6 +5,6 @@ Atualmente, contamos com o componente CTe, uma biblioteca para facilitar a emiss
 
 ***
 
-**Para baixar a versão Trial, [clique aqui](https://s3-sa-east-1.amazonaws.com/tecnospeed-trial/setup_cte_tecnoaccount_13.1.67.39.exe "Baixar o Componente CTe Trial")**.
+**Para baixar a versão Trial, [clique aqui](https://s3-sa-east-1.amazonaws.com/tecnospeed-trial/setup_cte_tecnoaccount_13.1.68.40.exe "Baixar o Componente CTe Trial")**.
 
 **Para ver uma lista com o histórico de mudanças, [clique aqui](https://github.com/tecnospeed/Componente-CTe/blob/master/CHANGELOG.md "Changelog").**
