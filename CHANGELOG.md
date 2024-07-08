@@ -1,4 +1,11 @@
-﻿## [13.1.67.39]
+﻿## [13.1.68.40]
+
+ **Correções**
+
+* DSML-1218 - DSP4G-1218 - Corrigido mapeamento dos campos do dataset para o vICMSDeson_530 e campo cBenef_531
+* DSML-835 - Centralização da remoção dos namespaces em eventos que utilizam a SVSP
+
+## [13.1.67.39]
 
 **Novidades**
 
@@ -178,6 +185,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
