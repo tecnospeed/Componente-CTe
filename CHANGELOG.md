@@ -1,4 +1,16 @@
-﻿## [13.1.68.40]
+﻿## [13.1.69.48]
+
+**Novidades**
+
+* DSML-1236 - Compatibilização com a Nota Técnica 2024.002 – [CT-e Simplificado](https://blog.tecnospeed.com.br/ct-e-nota-tecnica-2024-002-ct-e-simplificado/)
+
+**Correções**
+
+* DSML-1351 - Cancelamento de Desacordo gerando xml com UF incorreta.
+
+
+
+## [13.1.68.40]
 
  **Correções**
 
@@ -185,6 +197,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
