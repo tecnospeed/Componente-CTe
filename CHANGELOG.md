@@ -1,4 +1,11 @@
-﻿## [13.1.69.48]
+﻿## [13.1.68.52]
+
+**Correções**
+
+* 24.12.04 | DSML-1476 - correção do erro "arquivo XSD não encontrado" ao utilizar o CTeDataSetX via dll na versão simplificada.
+
+
+## [13.1.69.48]
 
 **Novidades**
 
@@ -197,6 +204,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
