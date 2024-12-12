@@ -1,4 +1,10 @@
-﻿## [13.1.68.52]
+﻿## [13.1.69.54]
+
+**Novidades**
+
+* DSML-1517 - Atualizado URL's de produção para versão Simplificada.
+
+## [13.1.68.52]
 
 **Correções**
 
@@ -204,6 +210,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
