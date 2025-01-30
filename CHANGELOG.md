@@ -1,4 +1,10 @@
-﻿## [13.1.69.54]
+﻿## [13.1.71.56]
+
+**Novidade**
+
+* DSP4G-1658 - Compatibilizado componente para o novo método de validação OAuth
+
+## [13.1.69.54]
 
 **Novidades**
 
@@ -210,6 +216,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
