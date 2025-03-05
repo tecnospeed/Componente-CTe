@@ -1,6 +1,3 @@
-﻿## [13.1.71.58]
-
-* Corre&ccedil;&otilde;es e melhorias diversos.
 
 ## [13.1.71.56]
 
