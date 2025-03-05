@@ -1,3 +1,11 @@
+﻿## [13.1.72.59]
+
+**Correções**
+
+* DSML-1593 - Comp. CTe - Ajuste classe spdINI.pas componentes oAuth
+* DSML-1438 - Análise/Ajuste - Componente - CTe - Validação excessiva tecnoaccount CTe
+* DSML-1085 - Correção do preenchimento das propriedades de último log de envio/retorno
+
 
 ## [13.1.71.56]
 
@@ -217,6 +225,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
