@@ -1,4 +1,8 @@
-﻿## [13.1.72.59]
+﻿## [13.1.73.61]
+
+25.04.01 | DSML-1670 - BUG - [Pugstorage] - [CTE] - [Externo] - [data e hora do CTE saindo em padrão americando]
+
+## [13.1.72.59]
 
 **Correções**
 
@@ -225,6 +229,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
