@@ -1,4 +1,10 @@
-﻿## [13.1.73.61]
+﻿## [13.1.74.62]
+
+**Correções**
+
+* 25.04.22 |DSML-1671 - Alterando o link de QR-Code para o estado de Minas Gerais
+
+## [13.1.73.61]
 
 25.04.01 | DSML-1670 - BUG - [Pugstorage] - [CTE] - [Externo] - [data e hora do CTE saindo em padrão americando]
 
@@ -229,6 +235,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
