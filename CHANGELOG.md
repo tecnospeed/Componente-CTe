@@ -1,4 +1,8 @@
-﻿## [13.1.74.62]
+﻿## [13.1.74.63]
+
+* Corre&ccedil;&otilde;es e melhorias diversos.
+
+## [13.1.74.62]
 
 **Correções**
 
@@ -235,6 +239,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
