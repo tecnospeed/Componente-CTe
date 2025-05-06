@@ -1,6 +1,8 @@
 ﻿## [13.1.74.63]
 
-* Corre&ccedil;&otilde;es e melhorias diversos.
+ **Correções**
+
+* Corrições nos RTMS com falha ao carregar;
 
 ## [13.1.74.62]
 
