@@ -2,7 +2,7 @@
 
  **Correções**
 
-* Corrições nos RTMS com falha ao carregar;
+* HOTFIX -  Correções nos RTMS com falha ao carregar;
 
 ## [13.1.74.62]
 
