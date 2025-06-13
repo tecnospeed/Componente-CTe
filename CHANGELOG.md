@@ -1,4 +1,11 @@
-﻿## [13.1.74.63]
+﻿## [13.1.75.67]
+
+**Correções**
+
+* [DSML-1778](https://tecnospeed.atlassian.net/browse/DSML-1778) - Correção na impressão em lote contendo os campos ObsCont
+* [DSML-1455](https://tecnospeed.atlassian.net/browse/DSML-1455) - correção funcionamento do metodo GetValueTagFilho para que consiga capturar uma tag filho com mesmo nome da tag pai
+
+## [13.1.74.63]
 
  **Correções**
 
@@ -241,6 +248,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
