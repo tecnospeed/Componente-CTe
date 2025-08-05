@@ -1,4 +1,18 @@
-﻿## [13.1.75.67]
+﻿## [14.1.0.1]
+
+
+**Novidades**
+
+* CLML-3149 - NT2025.001 - adequação a [revisão v1.07](https://forum.casadodesenvolvedor.com.br/topic/49350-%F0%9F%9A%A8-cte-e-cte-os-agora-possuem-nt-exclusiva-para-a-reforma-tribut%C3%A1ria-do-consumo-nota-t%C3%A9cnica-2025001-v106/#findComment-54786) 
+* [DSML-1747](https://tecnospeed.atlassian.net/browse/DSML-1747) - Atualizando o componente com a [NT 2025.001](https://blog.tecnospeed.com.br/nota-tecnica-reforma-tributaria-ct-e/).
+
+**Correções**
+
+* DSML-1473 - Ajustes no RTM para a Razão Social não sobrepor o CNPJ na impressão
+* DSML-1085 - Correção do preenchimento das propriedades de último log de envio/retorno
+* [DSML-1671](https://tecnospeed.atlassian.net/browse/DSML-1671) - Alterando o link de QR-Code para o estado de Minas Gerais
+
+## [13.1.75.67]
 
 **Correções**
 
@@ -248,6 +262,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
