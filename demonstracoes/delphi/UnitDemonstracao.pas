@@ -1,0 +1,1273 @@
+unit UnitDemonstracao;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ComCtrls, StdCtrls, ExtCtrls, jpeg,spdCTeDataSet, spdCTeType,
+  spdCustomCTe, spdCTe,ShellAPI;
+
+type
+  TForm1 = class(TForm)
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    PageControl2: TPageControl;
+    TabSheet3: TTabSheet;
+    PageControl3: TPageControl;
+    TabSheet4: TTabSheet;
+    TabSheet5: TTabSheet;
+    edtCnpjsh: TEdit;
+    edtTokensh: TEdit;
+    cbbCertificado: TComboBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    edtProtocolo: TEdit;
+    edtChave: TEdit;
+    edtRecibo: TEdit;
+    edtUf: TEdit;
+    Label4: TLabel;
+    edtCNPJ: TEdit;
+    Label5: TLabel;
+    lbAmbiente: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    mmXml: TMemo;
+    mmXmlRetorno: TMemo;
+    btnConfigsh: TButton;
+    btnConfiguraINI: TButton;
+    btnLoadConfig: TButton;
+    btnStatus: TButton;
+    btnGerarDataSets: TButton;
+    btnAssinar: TButton;
+    btnEnviarCTe: TButton;
+    btnConsultaChave: TButton;
+    btnCancelar: TButton;
+    btnPrever: TButton;
+    btnImprimir: TButton;
+    Image1: TImage;
+    btnEditarDacte: TButton;
+    btnExporta: TButton;
+    Button15: TButton;
+    cbbAmbiente: TComboBox;
+    spdCTe: TspdCTe;
+    spdCTeDataSet: TspdCTeDataSet;
+    OpenDialog: TOpenDialog;
+    btnGerarTx2: TButton;
+    btnGerarDataSetsReforma: TButton;
+    procedure btnEditarDacteClick(Sender: TObject);
+    procedure btnAssinarClick(Sender: TObject);
+    procedure btnLoadConfigClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure AtualizaInformacao;
+    procedure btnConfiguraINIClick(Sender: TObject);
+    procedure btnConfigshClick(Sender: TObject);
+    procedure btnStatusClick(Sender: TObject);
+    procedure btnGerarDataSetsClick(Sender: TObject);
+    procedure btnGerarTx2Click(Sender: TObject);
+    procedure btnEnviarCTeClick(Sender: TObject);
+    procedure btnConsultaChaveClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnPreverClick(Sender: TObject);
+    procedure btnImprimirClick(Sender: TObject);
+    procedure btnExportaClick(Sender: TObject);
+    procedure Button15Click(Sender: TObject);
+    procedure btnGerarDataSetsReformaClick(Sender: TObject);
+
+  private
+
+     CTeDataSets: TspdCTeDataSet;
+      _NumeroSerie, _NumeroCTe : String;
+
+    { Private declarations }
+  public
+  CTe: TspdCTe;
+  _XML: string;
+   procedure GerarXmlDuto(Sender: TObject);
+   procedure GerarXmlCompraGov(Sender: TObject);
+   procedure GerarXmlvTotDFe(Sender: TObject);
+   procedure GerarXmlTodosCampos(Sender: TObject);
+
+    { Public declarations }
+ end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+uses UnitCancelamento,DataSetsForm;
+
+{$R *.dfm}
+
+procedure TForm1.btnEditarDacteClick(Sender: TObject);
+begin
+  try
+    OpenDialog.InitialDir :=ExtractFilePath(ParamStr(0));
+    OpenDialog.Execute();
+    if OpenDialog.FileName <> '' then
+    begin
+      mmXml.Lines.LoadFromFile(OpenDialog.FileName);
+      CTe.EditarModeloDACTE(mmXml.Text,'');
+    end
+    else
+    begin
+      CTe.EditarModeloDACTE(mmXml.Text,'');
+    end;
+    finally
+
+end;
+end;
+
+procedure TForm1.AtualizaInformacao;
+begin
+  edtCnpjsh.Text := CTe.CnpjSoftwareHouse;   
+  edtCNPJ.Text := CTe.CNPJ;
+  edtUf.Text := CTe.UF;
+  cbbCertificado.Text := CTe.NomeCertificado.Text;
+
+  Form1.Caption := 'Demo CT-e '+CTe.Versao;
+  if CTe.Ambiente = akProducao then
+  begin
+  cbbAmbiente.Text := '1';
+  end
+  else
+  begin
+  cbbAmbiente.Text := '2';
+  end;
+
+
+end;
+
+
+procedure TForm1.btnAssinarClick(Sender: TObject);
+var _XML :string;
+begin
+     _XML:= mmXml.Text;
+     mmXml.Text := CTe.AssinarCT(_XML);
+end;
+
+procedure TForm1.btnLoadConfigClick(Sender: TObject);
+var DiretorioINI: string;
+begin
+   DiretorioINI := ExtractFilePath(ParamStr(0)) + 'cteConfig.ini';
+   CTe.LoadConfig(DiretorioINI);
+   AtualizaInformacao;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+
+   CTe := TspdCTe.Create(nil);
+   CTeDataSets := TspdCTeDataSet.Create(nil);
+   CTe.ConfigurarSoftwareHouse('','');
+   CTe.ListarCertificados(cbbCertificado.Items);
+
+end;
+
+procedure TForm1.btnConfiguraINIClick(Sender: TObject);
+var
+  _ExecuteFile: string;
+begin
+  try
+    begin
+    _ExecuteFile := ExtractFilePath(ParamStr(0)) + 'cteConfig.ini';
+    ShellExecute(Application.Handle, nil, Pchar(_ExecuteFile), nil, nil, SW_SHOWNORMAL);
+    end;      
+  except
+
+  end;
+end;
+
+procedure TForm1.btnConfigshClick(Sender: TObject);
+begin
+  CTe.ConfigurarSoftwareHouse(edtCnpjsh.Text,edtTokensh.Text);
+end;
+
+procedure TForm1.btnStatusClick(Sender: TObject);
+begin
+ mmXml.Text := CTe.StatusDoServico();
+end;
+
+
+
+procedure TForm1.btnGerarTx2Click(Sender: TObject);
+begin
+  try
+      OpenDialog.InitialDir:=ExtractFilePath(ParamStr(0));
+      OpenDialog.Execute();
+
+    if OpenDialog.FileName <> '' then
+    begin  
+      mmXml.Text := CTe.GerarXMLporTX2(OpenDialog.FileName);
+    end
+    else
+    begin
+      mmXml.Text :=CTe.GerarXMLporTX2(mmXml.Text);
+    end;
+     ShowMessage(OpenDialog.FileName);
+  finally
+
+  end;
+end;
+
+procedure TForm1.btnEnviarCTeClick(Sender: TObject);
+begin
+    mmXml.Text := CTe.EnviarCTSincrono(mmXml.Text);
+end;
+
+procedure TForm1.btnConsultaChaveClick(Sender: TObject);
+begin
+    mmXml.Text := CTe.ConsultarCT(edtChave.Text);
+end;
+
+
+procedure TForm1.btnCancelarClick(Sender: TObject);
+var
+  NovoFormulario: TForm2;
+begin
+  NovoFormulario := TForm2.Create(Self);
+  try
+    NovoFormulario.ShowModal;
+  finally
+    NovoFormulario.Free; 
+  end;
+end;
+
+procedure TForm1.btnPreverClick(Sender: TObject);
+begin
+  try
+    OpenDialog.InitialDir :=ExtractFilePath(ParamStr(0));
+    OpenDialog.Execute();
+    if OpenDialog.FileName <> '' then
+    begin
+      mmXml.Lines.LoadFromFile(OpenDialog.FileName);
+      CTe.PreverDACTE(mmXml.Text,'');
+    end
+    else
+    begin
+      CTe.PreverDACTE(mmXml.Text);
+    end;
+
+    finally
+end;
+end;
+
+procedure TForm1.btnImprimirClick(Sender: TObject);
+begin
+    try
+
+    OpenDialog.InitialDir :=ExtractFilePath(ParamStr(0));
+    OpenDialog.Execute();
+    if OpenDialog.FileName <> '' then
+    begin
+      mmXml.Lines.LoadFromFile(OpenDialog.FileName);
+      CTe.ImprimirDACTE(mmXml.Text,'');
+    end
+    else
+    begin
+      CTe.ImprimirDACTE(mmXml.Text);
+    end;
+
+  finally
+
+end;
+
+end;
+
+procedure TForm1.btnGerarDataSetsReformaClick(Sender: TObject);
+
+
+var
+  FormularioDataSets: TDataSetsSelect;
+begin
+  FormularioDataSets := TDataSetsSelect.Create(Self);
+  try
+    FormularioDataSets.ShowModal;
+  finally
+    FormularioDataSets.Free; 
+  end;
+
+end;
+
+procedure TForm1.btnExportaClick(Sender: TObject);
+begin
+  try
+    OpenDialog.InitialDir :=ExtractFilePath(ParamStr(0));
+    OpenDialog.Execute();
+    if OpenDialog.FileName <> '' then
+    begin
+      mmXml.Lines.LoadFromFile(OpenDialog.FileName);
+      CTe.ExportarDACTEParaPDF(mmXml.Text,'','',1);
+    end
+    else
+    begin
+      CTe.ExportarDACTEParaPDF(mmXml.Text,'','',1);
+    end;
+    finally
+end;
+end;
+
+procedure TForm1.Button15Click(Sender: TObject);
+begin
+    CTe.SaveConfig(ExtractFilePath(ParamStr(0))+'SaveConfig.ini');
+end;
+
+procedure TForm1.btnGerarDataSetsClick(Sender: TObject);
+
+begin
+
+  CTeDataSets.Versao :='4.00';
+  CTeDataSets.ConfigSection := 'XMLENVIO';
+  CTeDataSets.MappingFileName := 'C:\Program Files\TecnoSpeed\CTe\Arquivos\Esquemas\4.00\MappingCte.txt';
+  CTeDataSets.IdLote := '1';
+  
+  edtRecibo.clear;
+  edtProtocolo.clear;
+  _NumeroSerie  := InputBox('CT-e','Insira o Número da Série:','1');
+  _NumeroCTe     := InputBox('CT-e','Insira o Número da Nota: ','1');
+
+    CTeDataSets.CreateDataSets;
+    CTeDataSets.Incluir;
+
+    CTeDataSets.Campo('versao_2').AsString := '4.00';
+    CTeDataSets.Campo('cUF_5').AsString := '43';
+    CTeDataSets.Campo('cCT_6').AsString := '00000000';
+    CTeDataSets.Campo('CFOP_7').AsString := '5357';
+    CTeDataSets.Campo('natOp_8').AsString := 'TRANSPORTE RODOVIARIO DE CARGAS';
+    CTeDataSets.Campo('mod_10').AsString := '57';
+    CTeDataSets.Campo('serie_11').AsString := _NumeroSerie;
+    CTeDataSets.Campo('nCT_12').AsString := _NumeroCTe;
+    CTeDataSets.Campo('dhEmi_13').AsString := '2018-10-15T15:26:00-03:00';
+    CTeDataSets.Campo('tpImp_14').AsString := '1';
+    CTeDataSets.Campo('tpEmis_15').AsString := '1';
+    CTeDataSets.Campo('tpAmb_17').AsString := '2';
+    CTeDataSets.Campo('tpCTe_18').AsString := '0';
+    CTeDataSets.Campo('procEmi_19').AsString := '0';
+    CTeDataSets.Campo('verProc_20').AsString := '1';
+    CTeDataSets.Campo('cMunEnv_672').AsString := '4302105';
+    CTeDataSets.Campo('xMunEnv_673').AsString := 'BENTO GONCALVES';
+    CTeDataSets.Campo('UFEnv_674').AsString := 'RS';
+    CTeDataSets.Campo('modal_25').AsString := '01';
+    CTeDataSets.Campo('tpServ_26').AsString := '0';
+    CTeDataSets.Campo('cMunIni_27').AsString := '4302105';
+    CTeDataSets.Campo('xMunIni_28').AsString := 'BENTO GONCALVES';
+    CTeDataSets.Campo('UFIni_29').AsString := 'RS';
+    CTeDataSets.Campo('cMunFim_30').AsString := '4302105';
+    CTeDataSets.Campo('xMunFim_31').AsString := 'BENTO GONCALVES';
+    CTeDataSets.Campo('UFFim_32').AsString := 'RS';
+    CTeDataSets.Campo('retira_33').AsString := '0';
+    CTeDataSets.Campo('xDetRetira_34').AsString := 'detalhes teste';
+    CTeDataSets.Campo('indIEToma_1406').AsString := '1';
+
+    //toma
+    CTeDataSets.Campo('toma_36').AsString := '3';
+
+     //dados emitente
+    CTeDataSets.Campo('CNPJ_95').AsString := '99999999999999';
+    CTeDataSets.Campo('IE_96').AsString := '9999999999';
+    CTeDataSets.Campo('xNome_97').AsString := 'Nome teste';
+    CTeDataSets.Campo('xFant_98').AsString := 'Nome teste';
+    CTeDataSets.Campo('xLgr_100').AsString := 'Rua teste';
+    CTeDataSets.Campo('nro_101').AsString := '300';
+    CTeDataSets.Campo('xCpl_102').AsString := '10 andar';
+    CTeDataSets.Campo('xBairro_103').AsString := 'BAIRRO TESTE';
+    CTeDataSets.Campo('cMun_104').AsString := '4302105';
+    CTeDataSets.Campo('xMun_105').AsString := 'BENTO GONCALVES';
+    CTeDataSets.Campo('CEP_106').AsString := '89233198';
+    CTeDataSets.Campo('UF_107').AsString := 'RS';
+    CTeDataSets.Campo('fone_110').AsString := '1132433400';
+    CTeDataSets.Campo('CRT_1573').AsString := '1';
+
+    //dados remetente
+
+    CTeDataSets.Campo('CNPJ_112').AsString := '08187168000160';
+    CTeDataSets.Campo('IE_114').AsString := '9044016688';
+    CTeDataSets.Campo('xNome_115').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+    CTeDataSets.Campo('xFant_116').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+    CTeDataSets.Campo('fone_117').AsString := '4430283749';
+    CTeDataSets.Campo('xLgr_119').AsString := 'RUA DUQUE DE CAXIAS  S/N';
+    CTeDataSets.Campo('nro_120').AsString := '0';
+    CTeDataSets.Campo('xBairro_122').AsString := 'PARANA';
+    CTeDataSets.Campo('cMun_123').AsString := '4115200';
+    CTeDataSets.Campo('xMun_124').AsString := 'PARANA';
+    CTeDataSets.Campo('CEP_125').AsString := '01000000';
+    CTeDataSets.Campo('UF_126').AsString := 'PR';
+    CTeDataSets.Campo('cPais_127').AsString := '1058';
+    CTeDataSets.Campo('xPais_128').AsString := 'BRASIL';
+    CTeDataSets.Campo('email_604').AsString := 'x@tecnospeed.com.br';
+
+
+    //dadosDestinatario
+
+    CTeDataSets.Campo('CPF_200').AsString := '22233344405';
+    CTeDataSets.Campo('IE_201').AsString := '0500048665';
+    CTeDataSets.Campo('xNome_202').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+    CTeDataSets.Campo('xLgr_206').AsString := 'Praca Matriz';
+    CTeDataSets.Campo('nro_207').AsString := '0';
+    CTeDataSets.Campo('xBairro_209').AsString := 'Centro';
+    CTeDataSets.Campo('cMun_210').AsString := '4302105';
+    CTeDataSets.Campo('xMun_211').AsString := 'BENTO GONCALVES';
+    CTeDataSets.Campo('CEP_212').AsString := '01000000';
+    CTeDataSets.Campo('UF_213').AsString := 'RS';
+    CTeDataSets.Campo('cPais_214').AsString := '1058';
+    CTeDataSets.Campo('xPais_215').AsString := 'BRASIL';
+    CTeDataSets.Campo('email_608').AsString := 'teste.teste@teste.com.br';
+
+    //prestacaoServico
+
+    CTeDataSets.Campo('vTPrest_228').AsString := '200.00';
+    CTeDataSets.Campo('vRec_229').AsString := '200.00';
+
+    //dadosImposto
+
+    CTeDataSets.Campo('CST_609').AsString := '00';
+    CTeDataSets.Campo('vBC_610').AsString := '0.01';
+    CTeDataSets.Campo('pICMS_611').AsString := '7.00';
+    CTeDataSets.Campo('vICMS_612').AsString := '0.01';
+
+    //versaoModal
+    CTeDataSets.Campo('versaoModal_636').AsString := '4.00';
+
+    //dadosCarga
+
+    CTeDataSets.Campo('vCarga_671').AsString := '1000.00';
+    CTeDataSets.Campo('proPred_271').AsString := 'LATA';
+
+    //dadosICMSUFfim
+
+    CTeDataSets.Campo('vBCUFFim_676').AsString := '1.10';
+    CTeDataSets.Campo('pFCPUFFim_682').AsString := '1.10';
+    CTeDataSets.Campo('pICMSUFFim_677').AsString := '40';
+    CTeDataSets.Campo('pICMSInter_678').AsString := '12.00';
+    //CTeDataSets.Campo('pICMSInterPart_679').AsString := '40.00';
+    CTeDataSets.Campo('vICMSUFFim_680').AsString := '1.10';
+    CTeDataSets.Campo('vICMSUFIni_681').AsString := '1.10';
+    CTeDataSets.Campo('vFCPUFFim_683').AsString := '1.10';
+
+
+    //outraInformacoes
+
+    CTeDataSets.IncluirParte('infOutros');
+    CTeDataSets.Campo('tpDoc_159').AsString := '00';
+    CTeDataSets.Campo('nDoc_161').AsString := '123456';
+    CTeDataSets.Campo('dEmi_162').AsString := '2011-03-22';
+    CTeDataSets.Campo('vDocFisc_163').AsString := '1.00';
+
+    CTeDataSets.IncluirParte('infUnidCarga');
+    CTeDataSets.Campo('tpUnidCarga_709').AsString := '';
+    CTeDataSets.Campo('idUnidCarga_710').AsString := '';    
+    CTeDataSets.SalvarParte('infUnidCarga');
+
+    CTeDataSets.SalvarParte('infOutros');
+
+
+    //quantidadeCarga
+
+    CTeDataSets.IncluirParte('infQ');
+    CTeDataSets.Campo('cUnid_274').AsString := '00';
+    CTeDataSets.Campo('tpMed_275').AsString := 'm3';
+    CTeDataSets.Campo('qCarga_276').AsString := '1';
+    CTeDataSets.SalvarParte('infQ');
+
+    //modalRodoviario
+
+    CTeDataSets.IncluirParte('Rodo');
+    CTeDataSets.Campo('RNTRC_305').AsString := '00000012';
+    CTeDataSets.SalvarParte('Rodo');
+
+    //ordemColeta
+
+    CTeDataSets.IncluirParte('Occ');
+    CTeDataSets.Campo('serie_312').AsString := '1';
+    CTeDataSets.Campo('nOcc_313').AsString := '1';
+    CTeDataSets.Campo('dEmi_314').AsString := '2018-05-15';
+    CTeDataSets.Campo('CNPJ_316').AsString := '08187168000160';
+    CTeDataSets.Campo('cInt_317').AsString := '10';
+    CTeDataSets.Campo('IE_318').AsString := '0500077436';
+    CTeDataSets.Campo('UF_319').AsString := 'PR';
+    CTeDataSets.Campo('fone_320').AsString := '99999999';
+    CTeDataSets.SalvarParte('Occ');
+
+    CTeDataSets.IncluirParte('autXML');
+    CTeDataSets.Campo('CNPJ_814').AsString := '00000000000000';
+    CTeDataSets.SalvarParte('autXML');
+
+    CTeDataSets.IncluirParte('autXML');
+    CTeDataSets.Campo('CNPJ_814').AsString := '00000000000000';
+    CTeDataSets.SalvarParte('autXML');
+
+    CTeDataSets.IncluirParte('autXML');
+    CTeDataSets.Campo('CNPJ_814').AsString := '00000000000000';
+    CTeDataSets.SalvarParte('autXML');
+
+    //CTeDataSets.IncluirParte('infRespTec');
+    CTeDataSets.Campo('CNPJ_471').AsString := '08187168000160';
+    CTeDataSets.Campo('xContato_472').AsString := 'Matheus Carvalho';
+    CTeDataSets.Campo('email_473').AsString := 'matheus.carvalho@tecnospeed.com.br';
+    CTeDataSets.Campo('fone_474').AsString := '4430379500';
+    //CTeDataSets.SalvarParte('infRespTec');
+
+    CTeDataSets.Salvar;
+
+    _XML := CTeDataSets.LoteCTe;
+
+    mmXml.Text := _XML;
+
+end;
+
+procedure TForm1.GerarXmlTodosCampos(Sender: TObject);
+var
+  _XML: string;
+begin
+  // Configuração padrão do componente CTeDataSets
+  CTeDataSets.Versao := '4.00';
+  CTeDataSets.ConfigSection := 'XMLENVIO';
+  CTeDataSets.MappingFileName := 'C:\Program Files\TecnoSpeed\CTe\Arquivos\Esquemas\4.00\MappingCte.txt';
+  CTeDataSets.IdLote := '1';
+  CTeDataSets.CreateDataSets;
+
+  edtRecibo.clear;
+  edtProtocolo.clear;
+  _NumeroSerie  := InputBox('CT-e','Insira o Número da Série:','1');
+  _NumeroCTe     := InputBox('CT-e','Insira o Número da Nota: ','1');
+
+
+  // Início do documento CT-e principal
+  CTeDataSets.Incluir;
+
+  // Informações gerais do cabeçalho do CT-e
+  CTeDataSets.Campo('versao_2').AsString := '4.00';
+  CTeDataSets.Campo('cUF_5').AsString := '41';
+  CTeDataSets.Campo('cCT_6').AsString := '00000419';
+  CTeDataSets.Campo('CFOP_7').AsString := '5932';
+  CTeDataSets.Campo('natOp_8').AsString := 'TRANSPORTE RODOVIARIO DE CARGAS';
+  CTeDataSets.Campo('mod_10').AsString := '57';
+  CTeDataSets.Campo('serie_11').AsString := _NumeroSerie;
+  CTeDataSets.Campo('nCT_12').AsString := _NumeroCTe;
+  CTeDataSets.Campo('dhEmi_13').AsString := '2024-11-18T09:15:00-03:00';
+  CTeDataSets.Campo('tpImp_14').AsString := '1';
+  CTeDataSets.Campo('tpEmis_15').AsString := '1';
+  CTeDataSets.Campo('tpAmb_17').AsString := '2';
+  CTeDataSets.Campo('tpCTe_18').AsString := '0';
+  CTeDataSets.Campo('procEmi_19').AsString := '0';
+  CTeDataSets.Campo('verProc_20').AsString := '1';
+  CTeDataSets.Campo('cMunEnv_672').AsString := '4302105';
+  CTeDataSets.Campo('xMunEnv_673').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('UFEnv_674').AsString := 'RS';
+  CTeDataSets.Campo('modal_25').AsString := '01';
+  CTeDataSets.Campo('tpServ_26').AsString := '0';
+  CTeDataSets.Campo('cMunIni_27').AsString := '4302105';
+  CTeDataSets.Campo('xMunIni_28').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('UFIni_29').AsString := 'RS';
+  CTeDataSets.Campo('cMunFim_30').AsString := '4302105';
+  CTeDataSets.Campo('xMunFim_31').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('UFFim_32').AsString := 'RS';
+  CTeDataSets.Campo('retira_33').AsString := '0';
+  CTeDataSets.Campo('toma_36').AsString := '0';
+  CTeDataSets.Campo('xDetRetira_34').AsString := 'detalhes teste';
+  CTeDataSets.Campo('indIEToma_1406').AsString := '1';
+
+  // Dados do emitente
+  CTeDataSets.Campo('CNPJ_95').AsString := '29062609000177';
+  CTeDataSets.Campo('IE_96').AsString := '9098793965';
+  CTeDataSets.Campo('xNome_97').AsString := 'Nome teste';
+  CTeDataSets.Campo('xFant_98').AsString := 'Nome teste';
+  CTeDataSets.Campo('CRT_1573').AsString := '3';
+  CTeDataSets.Campo('xLgr_100').AsString := 'Rua teste';
+  CTeDataSets.Campo('nro_101').AsString := '300';
+  CTeDataSets.Campo('xCpl_102').AsString := '10 andar';
+  CTeDataSets.Campo('xBairro_103').AsString := 'BAIRRO TESTE';
+  CTeDataSets.Campo('cMun_104').AsString := '4115200';
+  CTeDataSets.Campo('xMun_105').AsString := 'MARINGA';
+  CTeDataSets.Campo('CEP_106').AsString := '89233198';
+  CTeDataSets.Campo('UF_107').AsString := 'PR';
+  CTeDataSets.Campo('fone_110').AsString := '1132433400';
+
+  // Dados do remetente
+  CTeDataSets.Campo('CNPJ_112').AsString := '08187168000160';
+  CTeDataSets.Campo('IE_114').AsString := '9044016688';
+  CTeDataSets.Campo('xNome_115').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+  CTeDataSets.Campo('xFant_116').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+  CTeDataSets.Campo('fone_117').AsString := '4430283749';
+  CTeDataSets.Campo('xLgr_119').AsString := 'RUA DUQUE DE CAXIAS  S/N';
+  CTeDataSets.Campo('nro_120').AsString := '0';
+  CTeDataSets.Campo('xBairro_122').AsString := 'PARANA';
+  CTeDataSets.Campo('cMun_123').AsString := '4115200';
+  CTeDataSets.Campo('xMun_124').AsString := 'PARANA';
+  CTeDataSets.Campo('CEP_125').AsString := '01000000';
+  CTeDataSets.Campo('UF_126').AsString := 'PR';
+  CTeDataSets.Campo('cPais_127').AsString := '1058';
+  CTeDataSets.Campo('xPais_128').AsString := 'BRASIL';
+  CTeDataSets.Campo('email_604').AsString := 'lucas.almeida@tecnospeed.com.br';
+
+  // Dados do destinatário
+  CTeDataSets.Campo('CPF_200').AsString := '22233344405';
+  CTeDataSets.Campo('IE_201').AsString := '0500048665';
+  CTeDataSets.Campo('xNome_202').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+  CTeDataSets.Campo('xLgr_206').AsString := 'Praca Matriz';
+  CTeDataSets.Campo('nro_207').AsString := '0';
+  CTeDataSets.Campo('xBairro_209').AsString := 'Centro';
+  CTeDataSets.Campo('cMun_210').AsString := '4302105';
+  CTeDataSets.Campo('xMun_211').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('CEP_212').AsString := '01000000';
+  CTeDataSets.Campo('UF_213').AsString := 'RS';
+  CTeDataSets.Campo('cPais_214').AsString := '1058';
+  CTeDataSets.Campo('xPais_215').AsString := 'BRASIL';
+  CTeDataSets.Campo('email_608').AsString := 'teste@tecnospeed.com.br';
+
+  // Detalhes do serviço
+  CTeDataSets.Campo('vTPrest_228').AsString := '200.00';
+  CTeDataSets.Campo('vRec_229').AsString := '200.00';
+
+  // Informações de imposto
+  CTeDataSets.Campo('CST_609').AsString := '00';
+  CTeDataSets.Campo('vBC_610').AsString := '0.01';
+  CTeDataSets.Campo('pICMS_611').AsString := '7.00';
+  CTeDataSets.Campo('vICMS_612').AsString := '0.01';
+
+  // Versão do modal e informações de carga
+  CTeDataSets.Campo('versaoModal_636').AsString := '4.00';
+  CTeDataSets.Campo('vCarga_671').AsString := '1000.00';
+  CTeDataSets.Campo('proPred_271').AsString := 'LATA';
+
+  // Detalhes de ICMS para a UF de destino
+  CTeDataSets.Campo('vBCUFFim_676').AsString := '1.10';
+  CTeDataSets.Campo('pFCPUFFim_682').AsString := '1.10';
+  CTeDataSets.Campo('pICMSUFFim_677').AsString := '40';
+  CTeDataSets.Campo('pICMSInter_678').AsString := '12.00';
+  CTeDataSets.Campo('vICMSUFFim_680').AsString := '1.10';
+  CTeDataSets.Campo('vICMSUFIni_681').AsString := '1.10';
+  CTeDataSets.Campo('vFCPUFFim_683').AsString := '1.10';
+
+  // Informações da reforma tributária
+  CTeDataSets.Campo('CST_1580').AsString := '123';
+  CTeDataSets.Campo('cClassTrib_1581').AsString := '123456';
+  CTeDataSets.Campo('vBC_1582').AsString := '0.01';
+  CTeDataSets.Campo('pIBSUF_1583').AsString := '0.01';
+  CTeDataSets.Campo('pDif_1584').AsString := '0.01';
+  CTeDataSets.Campo('vDif_1585').AsString := '0.01';
+  CTeDataSets.Campo('vDevTrib_1586').AsString := '0.01';
+  CTeDataSets.Campo('pRedAliq_1587').AsString := '0.01';
+  CTeDataSets.Campo('pAliqEfet_1588').AsString := '0.01';
+  CTeDataSets.Campo('vIBSUF_1589').AsString := '0.01';
+  CTeDataSets.Campo('pIBSMun_1590').AsString := '0.01';
+  CTeDataSets.Campo('pDif_1591').AsString := '0.01';
+  CTeDataSets.Campo('vDif_1592').AsString := '0.01';
+  CTeDataSets.Campo('vDevTrib_1593').AsString := '0.01';
+  CTeDataSets.Campo('pRedAliq_1594').AsString := '0.01';
+  CTeDataSets.Campo('pAliqEfet_1595').AsString := '0.01';
+  CTeDataSets.Campo('vIBSMun_1596').AsString := '0.01';
+  CTeDataSets.Campo('pCBS_1597').AsString := '0.01';
+  CTeDataSets.Campo('pDif_1598').AsString := '0.01';
+  CTeDataSets.Campo('vDif_1599').AsString := '0.01';
+  CTeDataSets.Campo('vDevTrib_1600').AsString := '0.01';
+  CTeDataSets.Campo('pRedAliq_1601').AsString := '0.01';
+  CTeDataSets.Campo('pAliqEfet_1602').AsString := '0.01';
+  CTeDataSets.Campo('vCBS_1603').AsString := '0.01';
+  CTeDataSets.Campo('CSTReg_1604').AsString := '123';
+  CTeDataSets.Campo('cClassTribReg_1605').AsString := '123456';
+  CTeDataSets.Campo('pAliqEfetRegIBSUF_1606').AsString := '0.01';
+  CTeDataSets.Campo('vTribRegIBSUF_1607').AsString := '0.01';
+  CTeDataSets.Campo('pAliqEfetRegIBSMun_1608').AsString := '0.01';
+  CTeDataSets.Campo('vTribRegIBSMun_1609').AsString := '0.01';
+  CTeDataSets.Campo('pAliqEfetRegCBS_1610').AsString := '0.01';
+  CTeDataSets.Campo('vTribRegCBS_1611').AsString := '0.01';
+  CTeDataSets.Campo('cCredPres_1612').AsString := '0.01';
+  CTeDataSets.Campo('pCredPres_1613').AsString := '0.01';
+  CTeDataSets.Campo('vCredPres_1614').AsString := '0.01';
+  CTeDataSets.Campo('vCredPresCondSus_1615').AsString := '0.01';
+  CTeDataSets.Campo('cCredPres_1616').AsString := '0.01';
+  CTeDataSets.Campo('pCredPres_1617').AsString := '0.01';
+  CTeDataSets.Campo('vCredPres_1618').AsString := '0.01';
+  CTeDataSets.Campo('vCredPresCondSus_1619').AsString := '0.01';
+
+  // Informações do responsável técnico
+  CTeDataSets.Campo('CNPJ_471').AsString := '23770358000107';
+  CTeDataSets.Campo('xContato_472').AsString := 'fabiano';
+  CTeDataSets.Campo('email_473').AsString := 'fabiano@eu.com.vc';
+  CTeDataSets.Campo('fone_474').AsString := '999534366';
+  CTeDataSets.Campo('idCSRT_475').AsString := '111';
+  CTeDataSets.Campo('hashCSRT_476').AsString := 'QoasQ2FrsJ29onWrcNJ44pxDdmU=';
+  
+  // Partes aninhadas
+  CTeDataSets.IncluirParte('infNFe');
+  CTeDataSets.Campo('chave_156').AsString := '41240929062609000177558040007580171000000036';
+  CTeDataSets.SalvarParte('infNFe');
+
+  CTeDataSets.IncluirParte('infQ');
+  CTeDataSets.Campo('cUnid_274').AsString := '00';
+  CTeDataSets.Campo('tpMed_275').AsString := 'm3';
+  CTeDataSets.Campo('qCarga_276').AsString := '1';
+  CTeDataSets.SalvarParte('infQ');
+
+  CTeDataSets.IncluirParte('Rodo');
+  CTeDataSets.Campo('RNTRC_305').AsString := '00000012';
+  CTeDataSets.SalvarParte('Rodo');
+
+  CTeDataSets.IncluirParte('Occ');
+  CTeDataSets.Campo('serie_312').AsString := '1';
+  CTeDataSets.Campo('nOcc_313').AsString := '1';
+  CTeDataSets.Campo('dEmi_314').AsString := '2018-02-21';
+  CTeDataSets.Campo('CNPJ_316').AsString := '08187168000160';
+  CTeDataSets.Campo('cInt_317').AsString := '10';
+  CTeDataSets.Campo('IE_318').AsString := '0500077436';
+  CTeDataSets.Campo('UF_319').AsString := 'PR';
+  CTeDataSets.Campo('fone_320').AsString := '99999999';
+  CTeDataSets.SalvarParte('Occ');
+
+  // Salva o documento CT-e completo
+  CTeDataSets.Salvar;
+
+  // Recupera e exibe o XML gerado
+  _XML := CTeDataSets.LoteCTe;
+  mmXml.Text := _XML;
+end;
+
+procedure TForm1.GerarXmlCompraGov(Sender: TObject);
+begin
+  // Configuração padrão do componente CTeDataSets
+  CTeDataSets.Versao := '4.00';
+  CTeDataSets.ConfigSection := 'XMLENVIO';
+  CTeDataSets.MappingFileName := 'C:\Program Files\TecnoSpeed\CTe\Arquivos\Esquemas\4.00\MappingCte.txt';
+  CTeDataSets.IdLote := '1';
+  CTeDataSets.CreateDataSets;
+
+  edtRecibo.clear;
+  edtProtocolo.clear;
+  _NumeroSerie  := InputBox('CT-e','Insira o Número da Série:','1');
+  _NumeroCTe     := InputBox('CT-e','Insira o Número da Nota: ','1');
+
+
+  // Início do documento CT-e principal
+  CTeDataSets.Incluir;
+
+  // Informações gerais do cabeçalho do CT-e
+  CTeDataSets.Campo('versao_2').AsString := '4.00';
+  CTeDataSets.Campo('cUF_5').AsString := '41';
+  CTeDataSets.Campo('cCT_6').AsString := '00000419';
+  CTeDataSets.Campo('CFOP_7').AsString := '5932';
+  CTeDataSets.Campo('natOp_8').AsString := 'TRANSPORTE RODOVIARIO DE CARGAS';
+  CTeDataSets.Campo('mod_10').AsString := '57';
+  CTeDataSets.Campo('serie_11').AsString := _NumeroSerie;
+  CTeDataSets.Campo('nCT_12').AsString := _NumeroCTe;
+  CTeDataSets.Campo('dhEmi_13').AsString := '2024-11-18T09:15:00-03:00';
+  CTeDataSets.Campo('tpImp_14').AsString := '1';
+  CTeDataSets.Campo('tpEmis_15').AsString := '1';
+  CTeDataSets.Campo('tpAmb_17').AsString := '2';
+  CTeDataSets.Campo('tpCTe_18').AsString := '0';
+  CTeDataSets.Campo('procEmi_19').AsString := '0';
+  CTeDataSets.Campo('verProc_20').AsString := '1';
+  CTeDataSets.Campo('cMunEnv_672').AsString := '4302105';
+  CTeDataSets.Campo('xMunEnv_673').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('UFEnv_674').AsString := 'RS';
+  CTeDataSets.Campo('modal_25').AsString := '01';
+  CTeDataSets.Campo('tpServ_26').AsString := '0';
+  CTeDataSets.Campo('cMunIni_27').AsString := '4302105';
+  CTeDataSets.Campo('xMunIni_28').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('UFIni_29').AsString := 'RS';
+  CTeDataSets.Campo('cMunFim_30').AsString := '4302105';
+  CTeDataSets.Campo('xMunFim_31').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('UFFim_32').AsString := 'RS';
+  CTeDataSets.Campo('retira_33').AsString := '0';
+  CTeDataSets.Campo('toma_36').AsString := '0';
+  CTeDataSets.Campo('xDetRetira_34').AsString := 'detalhes teste';
+  CTeDataSets.Campo('indIEToma_1406').AsString := '1';
+
+  // Dados do emitente
+  CTeDataSets.Campo('CNPJ_95').AsString := '29062609000177';
+  CTeDataSets.Campo('IE_96').AsString := '9098793965';
+  CTeDataSets.Campo('xNome_97').AsString := 'Nome teste';
+  CTeDataSets.Campo('xFant_98').AsString := 'Nome teste';
+  CTeDataSets.Campo('CRT_1573').AsString := '3';
+  CTeDataSets.Campo('xLgr_100').AsString := 'Rua teste';
+  CTeDataSets.Campo('nro_101').AsString := '300';
+  CTeDataSets.Campo('xCpl_102').AsString := '10 andar';
+  CTeDataSets.Campo('xBairro_103').AsString := 'BAIRRO TESTE';
+  CTeDataSets.Campo('cMun_104').AsString := '4115200';
+  CTeDataSets.Campo('xMun_105').AsString := 'MARINGA';
+  CTeDataSets.Campo('CEP_106').AsString := '89233198';
+  CTeDataSets.Campo('UF_107').AsString := 'PR';
+  CTeDataSets.Campo('fone_110').AsString := '1132433400';
+
+  // Dados do remetente
+  CTeDataSets.Campo('CNPJ_112').AsString := '08187168000160';
+  CTeDataSets.Campo('IE_114').AsString := '9044016688';
+  CTeDataSets.Campo('xNome_115').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+  CTeDataSets.Campo('xFant_116').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+  CTeDataSets.Campo('fone_117').AsString := '4430283749';
+  CTeDataSets.Campo('xLgr_119').AsString := 'RUA DUQUE DE CAXIAS  S/N';
+  CTeDataSets.Campo('nro_120').AsString := '0';
+  CTeDataSets.Campo('xBairro_122').AsString := 'PARANA';
+  CTeDataSets.Campo('cMun_123').AsString := '4115200';
+  CTeDataSets.Campo('xMun_124').AsString := 'PARANA';
+  CTeDataSets.Campo('CEP_125').AsString := '01000000';
+  CTeDataSets.Campo('UF_126').AsString := 'PR';
+  CTeDataSets.Campo('cPais_127').AsString := '1058';
+  CTeDataSets.Campo('xPais_128').AsString := 'BRASIL';
+  CTeDataSets.Campo('email_604').AsString := 'lucas.almeida@tecnospeed.com.br';
+
+  // Dados do destinatário
+  CTeDataSets.Campo('CPF_200').AsString := '22233344405';
+  CTeDataSets.Campo('IE_201').AsString := '0500048665';
+  CTeDataSets.Campo('xNome_202').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+  CTeDataSets.Campo('xLgr_206').AsString := 'Praca Matriz';
+  CTeDataSets.Campo('nro_207').AsString := '0';
+  CTeDataSets.Campo('xBairro_209').AsString := 'Centro';
+  CTeDataSets.Campo('cMun_210').AsString := '4302105';
+  CTeDataSets.Campo('xMun_211').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('CEP_212').AsString := '01000000';
+  CTeDataSets.Campo('UF_213').AsString := 'RS';
+  CTeDataSets.Campo('cPais_214').AsString := '1058';
+  CTeDataSets.Campo('xPais_215').AsString := 'BRASIL';
+  CTeDataSets.Campo('email_608').AsString := 'teste@tecnospeed.com.br';
+
+  // Detalhes do serviço
+  CTeDataSets.Campo('vTPrest_228').AsString := '200.00';
+  CTeDataSets.Campo('vRec_229').AsString := '200.00';
+
+  // Informações de imposto
+  CTeDataSets.Campo('CST_609').AsString := '00';
+  CTeDataSets.Campo('vBC_610').AsString := '0.01';
+  CTeDataSets.Campo('pICMS_611').AsString := '7.00';
+  CTeDataSets.Campo('vICMS_612').AsString := '0.01';
+
+  // Versão do modal e informações de carga
+  CTeDataSets.Campo('versaoModal_636').AsString := '4.00';
+  CTeDataSets.Campo('vCarga_671').AsString := '1000.00';
+  CTeDataSets.Campo('proPred_271').AsString := 'LATA';
+
+  // Detalhes de ICMS para a UF de destino
+  CTeDataSets.Campo('vBCUFFim_676').AsString := '1.10';
+  CTeDataSets.Campo('pFCPUFFim_682').AsString := '1.10';
+  CTeDataSets.Campo('pICMSUFFim_677').AsString := '40';
+  CTeDataSets.Campo('pICMSInter_678').AsString := '12.00';
+  CTeDataSets.Campo('vICMSUFFim_680').AsString := '1.10';
+  CTeDataSets.Campo('vICMSUFIni_681').AsString := '1.10';
+  CTeDataSets.Campo('vFCPUFFim_683').AsString := '1.10';
+
+  // Informações do responsável técnico
+  CTeDataSets.Campo('CNPJ_471').AsString := '23770358000107';
+  CTeDataSets.Campo('xContato_472').AsString := 'fabiano';
+  CTeDataSets.Campo('email_473').AsString := 'fabiano@eu.com.vc';
+  CTeDataSets.Campo('fone_474').AsString := '999534366';
+  CTeDataSets.Campo('idCSRT_475').AsString := '111';
+  CTeDataSets.Campo('hashCSRT_476').AsString := 'QoasQ2FrsJ29onWrcNJ44pxDdmU=';
+
+  // Informações da reforma tributária
+  CTeDataSets.Campo('tpEnteGov_1579').AsString := '1';
+  CTeDataSets.Campo('pRedutor_1620').AsString := '2';
+
+  // Partes aninhadas
+  CTeDataSets.IncluirParte('infNFe');
+  CTeDataSets.Campo('chave_156').AsString := '41240929062609000177558040007580171000000036';
+  CTeDataSets.SalvarParte('infNFe');
+
+  CTeDataSets.IncluirParte('infQ');
+  CTeDataSets.Campo('cUnid_274').AsString := '00';
+  CTeDataSets.Campo('tpMed_275').AsString := 'm3';
+  CTeDataSets.Campo('qCarga_276').AsString := '1';
+  CTeDataSets.SalvarParte('infQ');
+
+  CTeDataSets.IncluirParte('Rodo');
+  CTeDataSets.Campo('RNTRC_305').AsString := '00000012';
+  CTeDataSets.SalvarParte('Rodo');
+
+  CTeDataSets.IncluirParte('Occ');
+  CTeDataSets.Campo('serie_312').AsString := '1';
+  CTeDataSets.Campo('nOcc_313').AsString := '1';
+  CTeDataSets.Campo('dEmi_314').AsString := '2018-02-21';
+  CTeDataSets.Campo('CNPJ_316').AsString := '08187168000160';
+  CTeDataSets.Campo('cInt_317').AsString := '10';
+  CTeDataSets.Campo('IE_318').AsString := '0500077436';
+  CTeDataSets.Campo('UF_319').AsString := 'PR';
+  CTeDataSets.Campo('fone_320').AsString := '99999999';
+  CTeDataSets.SalvarParte('Occ');
+
+  CTeDataSets.Salvar;
+  
+  _XML := CTeDataSets.LoteCTe;
+  mmXml.Text := _XML;
+end;
+
+procedure TForm1.GerarXmlvTotDFe(Sender: TObject);
+begin
+  // Configuração padrão do componente CTeDataSets
+  CTeDataSets.Versao := '4.00';
+  CTeDataSets.ConfigSection := 'XMLENVIO';
+  CTeDataSets.MappingFileName := 'C:\Program Files\TecnoSpeed\CTe\Arquivos\Esquemas\4.00\MappingCte.txt';
+  CTeDataSets.IdLote := '1';
+  CTeDataSets.CreateDataSets;
+
+  edtRecibo.clear;
+  edtProtocolo.clear;
+  _NumeroSerie  := InputBox('CT-e','Insira o Número da Série:','1');
+  _NumeroCTe     := InputBox('CT-e','Insira o Número da Nota: ','1');
+  
+  CTeDataSets.Incluir;
+
+  // Informações gerais do cabeçalho do CT-e
+  CTeDataSets.Campo('versao_2').AsString := '4.00';
+  CTeDataSets.Campo('cUF_5').AsString := '41';
+  CTeDataSets.Campo('cCT_6').AsString := '00000419';
+  CTeDataSets.Campo('CFOP_7').AsString := '5932';
+  CTeDataSets.Campo('natOp_8').AsString := 'TRANSPORTE RODOVIARIO DE CARGAS';
+  CTeDataSets.Campo('mod_10').AsString := '57';
+  CTeDataSets.Campo('serie_11').AsString := _NumeroSerie;
+  CTeDataSets.Campo('nCT_12').AsString := _NumeroCTe;
+  CTeDataSets.Campo('dhEmi_13').AsString := '2024-11-18T09:15:00-03:00';
+  CTeDataSets.Campo('tpImp_14').AsString := '1';
+  CTeDataSets.Campo('tpEmis_15').AsString := '1';
+  CTeDataSets.Campo('tpAmb_17').AsString := '2';
+  CTeDataSets.Campo('tpCTe_18').AsString := '0';
+  CTeDataSets.Campo('procEmi_19').AsString := '0';
+  CTeDataSets.Campo('verProc_20').AsString := '1';
+  CTeDataSets.Campo('cMunEnv_672').AsString := '4302105';
+  CTeDataSets.Campo('xMunEnv_673').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('UFEnv_674').AsString := 'RS';
+  CTeDataSets.Campo('modal_25').AsString := '01';
+  CTeDataSets.Campo('tpServ_26').AsString := '0';
+  CTeDataSets.Campo('cMunIni_27').AsString := '4302105';
+  CTeDataSets.Campo('xMunIni_28').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('UFIni_29').AsString := 'RS';
+  CTeDataSets.Campo('cMunFim_30').AsString := '4302105';
+  CTeDataSets.Campo('xMunFim_31').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('UFFim_32').AsString := 'RS';
+  CTeDataSets.Campo('retira_33').AsString := '0';
+  CTeDataSets.Campo('toma_36').AsString := '0';
+  CTeDataSets.Campo('xDetRetira_34').AsString := 'detalhes teste';
+  CTeDataSets.Campo('indIEToma_1406').AsString := '1';
+
+  // Dados do emitente
+  CTeDataSets.Campo('CNPJ_95').AsString := '29062609000177';
+  CTeDataSets.Campo('IE_96').AsString := '9098793965';
+  CTeDataSets.Campo('xNome_97').AsString := 'Nome teste';
+  CTeDataSets.Campo('xFant_98').AsString := 'Nome teste';
+  CTeDataSets.Campo('CRT_1573').AsString := '3';
+  CTeDataSets.Campo('xLgr_100').AsString := 'Rua teste';
+  CTeDataSets.Campo('nro_101').AsString := '300';
+  CTeDataSets.Campo('xCpl_102').AsString := '10 andar';
+  CTeDataSets.Campo('xBairro_103').AsString := 'BAIRRO TESTE';
+  CTeDataSets.Campo('cMun_104').AsString := '4115200';
+  CTeDataSets.Campo('xMun_105').AsString := 'MARINGA';
+  CTeDataSets.Campo('CEP_106').AsString := '89233198';
+  CTeDataSets.Campo('UF_107').AsString := 'PR';
+  CTeDataSets.Campo('fone_110').AsString := '1132433400';
+
+  // Dados do remetente
+  CTeDataSets.Campo('CNPJ_112').AsString := '08187168000160';
+  CTeDataSets.Campo('IE_114').AsString := '9044016688';
+  CTeDataSets.Campo('xNome_115').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+  CTeDataSets.Campo('xFant_116').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+  CTeDataSets.Campo('fone_117').AsString := '4430283749';
+  CTeDataSets.Campo('xLgr_119').AsString := 'RUA DUQUE DE CAXIAS  S/N';
+  CTeDataSets.Campo('nro_120').AsString := '0';
+  CTeDataSets.Campo('xBairro_122').AsString := 'PARANA';
+  CTeDataSets.Campo('cMun_123').AsString := '4115200';
+  CTeDataSets.Campo('xMun_124').AsString := 'PARANA';
+  CTeDataSets.Campo('CEP_125').AsString := '01000000';
+  CTeDataSets.Campo('UF_126').AsString := 'PR';
+  CTeDataSets.Campo('cPais_127').AsString := '1058';
+  CTeDataSets.Campo('xPais_128').AsString := 'BRASIL';
+  CTeDataSets.Campo('email_604').AsString := 'lucas.almeida@tecnospeed.com.br';
+
+  // Dados do destinatário
+  CTeDataSets.Campo('CPF_200').AsString := '22233344405';
+  CTeDataSets.Campo('IE_201').AsString := '0500048665';
+  CTeDataSets.Campo('xNome_202').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+  CTeDataSets.Campo('xLgr_206').AsString := 'Praca Matriz';
+  CTeDataSets.Campo('nro_207').AsString := '0';
+  CTeDataSets.Campo('xBairro_209').AsString := 'Centro';
+  CTeDataSets.Campo('cMun_210').AsString := '4302105';
+  CTeDataSets.Campo('xMun_211').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('CEP_212').AsString := '01000000';
+  CTeDataSets.Campo('UF_213').AsString := 'RS';
+  CTeDataSets.Campo('cPais_214').AsString := '1058';
+  CTeDataSets.Campo('xPais_215').AsString := 'BRASIL';
+  CTeDataSets.Campo('email_608').AsString := 'teste@tecnospeed.com.br';
+
+  // Detalhes do serviço
+  CTeDataSets.Campo('vTPrest_228').AsString := '200.00';
+  CTeDataSets.Campo('vRec_229').AsString := '200.00';
+
+  // Informações de imposto
+  CTeDataSets.Campo('CST_609').AsString := '00';
+  CTeDataSets.Campo('vBC_610').AsString := '0.01';
+  CTeDataSets.Campo('pICMS_611').AsString := '7.00';
+  CTeDataSets.Campo('vICMS_612').AsString := '0.01';
+
+  // Versão do modal e informações de carga
+  CTeDataSets.Campo('versaoModal_636').AsString := '4.00';
+  CTeDataSets.Campo('vCarga_671').AsString := '1000.00';
+  CTeDataSets.Campo('proPred_271').AsString := 'LATA';
+
+  // Detalhes de ICMS para a UF de destino
+  CTeDataSets.Campo('vBCUFFim_676').AsString := '1.10';
+  CTeDataSets.Campo('pFCPUFFim_682').AsString := '1.10';
+  CTeDataSets.Campo('pICMSUFFim_677').AsString := '40';
+  CTeDataSets.Campo('pICMSInter_678').AsString := '12.00';
+  CTeDataSets.Campo('vICMSUFFim_680').AsString := '1.10';
+  CTeDataSets.Campo('vICMSUFIni_681').AsString := '1.10';
+  CTeDataSets.Campo('vFCPUFFim_683').AsString := '1.10';
+
+  // Informações do responsável técnico
+  CTeDataSets.Campo('CNPJ_471').AsString := '23770358000107';
+  CTeDataSets.Campo('xContato_472').AsString := 'fabiano';
+  CTeDataSets.Campo('email_473').AsString := 'fabiano@eu.com.vc';
+  CTeDataSets.Campo('fone_474').AsString := '999534366';
+  CTeDataSets.Campo('idCSRT_475').AsString := '111';
+  CTeDataSets.Campo('hashCSRT_476').AsString := 'QoasQ2FrsJ29onWrcNJ44pxDdmU=';
+
+  // Informações da reforma tributária
+  CTeDataSets.Campo('tpEnteGov_1579').AsString := '1';
+  CTeDataSets.Campo('pRedutor_1620').AsString := '2';
+  CTeDataSets.Campo('vTotDFe_1621').AsString := '0.01';
+
+  // Partes aninhadas
+  CTeDataSets.IncluirParte('infNFe');
+  CTeDataSets.Campo('chave_156').AsString := '41240929062609000177558040007580171000000036';
+  CTeDataSets.SalvarParte('infNFe');
+
+  CTeDataSets.IncluirParte('infQ');
+  CTeDataSets.Campo('cUnid_274').AsString := '00';
+  CTeDataSets.Campo('tpMed_275').AsString := 'm3';
+  CTeDataSets.Campo('qCarga_276').AsString := '1';
+  CTeDataSets.SalvarParte('infQ');
+
+  CTeDataSets.IncluirParte('Rodo');
+  CTeDataSets.Campo('RNTRC_305').AsString := '00000012';
+  CTeDataSets.SalvarParte('Rodo');
+
+  CTeDataSets.IncluirParte('Occ');
+  CTeDataSets.Campo('serie_312').AsString := '1';
+  CTeDataSets.Campo('nOcc_313').AsString := '1';
+  CTeDataSets.Campo('dEmi_314').AsString := '2018-02-21';
+  CTeDataSets.Campo('CNPJ_316').AsString := '08187168000160';
+  CTeDataSets.Campo('cInt_317').AsString := '10';
+  CTeDataSets.Campo('IE_318').AsString := '0500077436';
+  CTeDataSets.Campo('UF_319').AsString := 'PR';
+  CTeDataSets.Campo('fone_320').AsString := '99999999';
+  CTeDataSets.SalvarParte('Occ');
+
+  CTeDataSets.Salvar;
+
+  _XML := CTeDataSets.LoteCTe;
+  mmXml.Text := _XML;
+end;
+
+procedure TForm1.GerarXmlDuto(Sender: TObject);
+begin
+
+  CTeDataSets.Versao := '4.00';
+  CTeDataSets.ConfigSection := 'XMLENVIO';
+  CTeDataSets.MappingFileName := 'C:\Program Files\TecnoSpeed\CTe\Arquivos\Esquemas\4.00\MappingCte.txt';
+  CTeDataSets.IdLote := '1';
+
+  edtRecibo.clear;
+  edtProtocolo.clear;
+  _NumeroSerie  := InputBox('CT-e','Insira o Número da Série:','1');
+  _NumeroCTe     := InputBox('CT-e','Insira o Número da Nota: ','1');
+
+  CTeDataSets.CreateDataSets;
+
+  CTeDataSets.Incluir;
+
+  CTeDataSets.Campo('versao_2').AsString := '4.00';
+  CTeDataSets.Campo('cUF_5').AsString := '41';
+  CTeDataSets.Campo('cCT_6').AsString := '00000419';
+  CTeDataSets.Campo('CFOP_7').AsString := '5932';
+  CTeDataSets.Campo('natOp_8').AsString := 'TRANSPORTE RODOVIARIO DE CARGAS';
+  CTeDataSets.Campo('mod_10').AsString := '57';
+  CTeDataSets.Campo('serie_11').AsString := _NumeroSerie;
+  CTeDataSets.Campo('nCT_12').AsString := _NumeroCTe;
+  CTeDataSets.Campo('dhEmi_13').AsString := '2024-11-18T09:15:00-03:00';
+  CTeDataSets.Campo('tpImp_14').AsString := '1';
+  CTeDataSets.Campo('tpEmis_15').AsString := '1';
+  CTeDataSets.Campo('tpAmb_17').AsString := '2';
+  CTeDataSets.Campo('tpCTe_18').AsString := '0';
+  CTeDataSets.Campo('procEmi_19').AsString := '0';
+  CTeDataSets.Campo('verProc_20').AsString := '1';
+  CTeDataSets.Campo('cMunEnv_672').AsString := '4302105';
+  CTeDataSets.Campo('xMunEnv_673').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('UFEnv_674').AsString := 'RS';
+  CTeDataSets.Campo('modal_25').AsString := '01';
+  CTeDataSets.Campo('tpServ_26').AsString := '0';
+  CTeDataSets.Campo('cMunIni_27').AsString := '4302105';
+  CTeDataSets.Campo('xMunIni_28').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('UFIni_29').AsString := 'RS';
+  CTeDataSets.Campo('cMunFim_30').AsString := '4302105';
+  CTeDataSets.Campo('xMunFim_31').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('UFFim_32').AsString := 'RS';
+  CTeDataSets.Campo('retira_33').AsString := '0';
+  CTeDataSets.Campo('xDetRetira_34').AsString := 'detalhes teste';
+  CTeDataSets.Campo('indIEToma_1406').AsString := '1';
+  CTeDataSets.Campo('toma_36').AsString := '0';
+
+
+  CTeDataSets.Campo('CNPJ_95').AsString := '29062609000177';
+  CTeDataSets.Campo('IE_96').AsString := '9098793965';
+  CTeDataSets.Campo('xNome_97').AsString := 'Nome teste';
+  CTeDataSets.Campo('xFant_98').AsString := 'Nome teste';
+  CTeDataSets.Campo('CRT_1573').AsString := '3';
+  CTeDataSets.Campo('xLgr_100').AsString := 'Rua teste';
+  CTeDataSets.Campo('nro_101').AsString := '300';
+  CTeDataSets.Campo('xCpl_102').AsString := '10 andar';
+  CTeDataSets.Campo('xBairro_103').AsString := 'BAIRRO TESTE';
+  CTeDataSets.Campo('cMun_104').AsString := '4115200';
+  CTeDataSets.Campo('xMun_105').AsString := 'MARINGA';
+  CTeDataSets.Campo('CEP_106').AsString := '89233198';
+  CTeDataSets.Campo('UF_107').AsString := 'PR';
+  CTeDataSets.Campo('fone_110').AsString := '1132433400';
+
+  CTeDataSets.Campo('CNPJ_112').AsString := '08187168000160';
+  CTeDataSets.Campo('IE_114').AsString := '9044016688';
+  CTeDataSets.Campo('xNome_115').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+  CTeDataSets.Campo('xFant_116').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+  CTeDataSets.Campo('fone_117').AsString := '4430283749';
+  CTeDataSets.Campo('xLgr_119').AsString := 'RUA DUQUE DE CAXIAS  S/N';
+  CTeDataSets.Campo('nro_120').AsString := '0';
+  CTeDataSets.Campo('xBairro_122').AsString := 'PARANA';
+  CTeDataSets.Campo('cMun_123').AsString := '4115200';
+  CTeDataSets.Campo('xMun_124').AsString := 'PARANA';
+  CTeDataSets.Campo('CEP_125').AsString := '01000000';
+  CTeDataSets.Campo('UF_126').AsString := 'PR';
+  CTeDataSets.Campo('cPais_127').AsString := '1058';
+  CTeDataSets.Campo('xPais_128').AsString := 'BRASIL';
+  CTeDataSets.Campo('email_604').AsString := 'lucas.almeida@tecnospeed.com.br';
+
+  CTeDataSets.Campo('CPF_200').AsString := '22233344405';
+  CTeDataSets.Campo('IE_201').AsString := '0500048665';
+  CTeDataSets.Campo('xNome_202').AsString := 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
+  CTeDataSets.Campo('xLgr_206').AsString := 'Praca Matriz';
+  CTeDataSets.Campo('nro_207').AsString := '0';
+  CTeDataSets.Campo('xBairro_209').AsString := 'Centro';
+  CTeDataSets.Campo('cMun_210').AsString := '4302105';
+  CTeDataSets.Campo('xMun_211').AsString := 'BENTO GONCALVES';
+  CTeDataSets.Campo('CEP_212').AsString := '01000000';
+  CTeDataSets.Campo('UF_213').AsString := 'RS';
+  CTeDataSets.Campo('cPais_214').AsString := '1058';
+  CTeDataSets.Campo('xPais_215').AsString := 'BRASIL';
+  CTeDataSets.Campo('email_608').AsString := 'teste@tecnospeed.com.br';
+
+  CTeDataSets.Campo('vTPrest_228').AsString := '200.00';
+  CTeDataSets.Campo('vRec_229').AsString := '200.00';
+
+  CTeDataSets.Campo('CST_609').AsString := '00';
+  CTeDataSets.Campo('vBC_610').AsString := '0.01';
+  CTeDataSets.Campo('pICMS_611').AsString := '7.00';
+  CTeDataSets.Campo('vICMS_612').AsString := '0.01';
+
+
+ CTeDataSets.Campo('versaoModal_636').AsString := '4.00';
+  CTeDataSets.Campo('vCarga_671').AsString := '1000.00';
+  CTeDataSets.Campo('proPred_271').AsString := 'LATA';
+
+  CTeDataSets.Campo('vBCUFFim_676').AsString := '1.10';
+  CTeDataSets.Campo('pFCPUFFim_682').AsString := '1.10';
+  CTeDataSets.Campo('pICMSUFFim_677').AsString := '40';
+  CTeDataSets.Campo('pICMSInter_678').AsString := '12.00';
+  CTeDataSets.Campo('vICMSUFFim_680').AsString := '1.10';
+  CTeDataSets.Campo('vICMSUFIni_681').AsString := '1.10';
+  CTeDataSets.Campo('vFCPUFFim_683').AsString := '1.10';
+
+  CTeDataSets.Campo('CNPJ_471').AsString := '23770358000107';
+  CTeDataSets.Campo('xContato_472').AsString := 'fabiano';
+  CTeDataSets.Campo('email_473').AsString := 'fabiano@eu.com.vc';
+  CTeDataSets.Campo('fone_474').AsString := '999534366';
+  CTeDataSets.Campo('idCSRT_475').AsString := '111';
+  CTeDataSets.Campo('hashCSRT_476').AsString := 'QoasQ2FrsJ29onWrcNJ44pxDdmU=';
+
+  CTeDataSets.IncluirParte('dup');
+  CTeDataSets.Campo('nDup_641').AsString := '';
+  CTeDataSets.Campo('dVenc_642').AsString := '';
+  CTeDataSets.Campo('vDup_643').AsString := '';
+  CTeDataSets.SalvarParte('dup');
+
+  CTeDataSets.IncluirParte('pass');
+  CTeDataSets.Campo('xPass_63').AsString := '';
+  CTeDataSets.SalvarParte('pass');
+
+  CTeDataSets.IncluirParte('emiDocAnt');
+  CTeDataSets.Campo('CNPJ_284').AsString := '';
+  CTeDataSets.Campo('CPF_285').AsString := '';
+  CTeDataSets.Campo('IE_286').AsString := '';
+  CTeDataSets.Campo('UF_287').AsString := '';
+  CTeDataSets.Campo('xNome_288').AsString := '';
+  CTeDataSets.SalvarParte('emiDocAnt');
+
+  CTeDataSets.IncluirParte('idDocAntPap');
+  CTeDataSets.Campo('tpDoc_291').AsString := '';
+  CTeDataSets.Campo('serie_292').AsString := '';
+  CTeDataSets.Campo('subser_293').AsString := '';
+  CTeDataSets.Campo('nDoc_294').AsString := '';
+  CTeDataSets.Campo('dEmi_295').AsString := '';
+  CTeDataSets.SalvarParte('idDocAntPap');
+
+  CTeDataSets.IncluirParte('idDocAntEle');
+
+  CTeDataSets.SalvarParte('idDocAntEle');
+
+  CTeDataSets.IncluirParte('ObsCont');
+  CTeDataSets.Campo('xCampo_89').AsString := '';
+  CTeDataSets.Campo('xTexto_90').AsString := '';
+  CTeDataSets.SalvarParte('ObsCont');
+
+  CTeDataSets.IncluirParte('ObsFisco');
+  CTeDataSets.Campo('xTexto_93').AsString := '';
+  CTeDataSets.Campo('xCampo_92').AsString := '';
+  CTeDataSets.SalvarParte('ObsFisco');
+
+  CTeDataSets.IncluirParte('infOutros');
+  CTeDataSets.Campo('tpDoc_159').AsString := '00';
+  CTeDataSets.Campo('descOutros_160').AsString := '';
+  CTeDataSets.Campo('nDoc_161').AsString := '123456';
+  CTeDataSets.Campo('dEmi_162').AsString := '2011-03-22';
+  CTeDataSets.Campo('vDocFisc_163').AsString := '1.00';
+  CTeDataSets.SalvarParte('infOutros');
+
+  CTeDataSets.IncluirParte('Comp');
+  CTeDataSets.Campo('xNome_231').AsString := '';
+  CTeDataSets.Campo('vComp_232').AsString := '';
+  CTeDataSets.SalvarParte('Comp');
+
+  CTeDataSets.IncluirParte('infQ');
+  CTeDataSets.Campo('cUnid_274').AsString := '00';
+  CTeDataSets.Campo('tpMed_275').AsString := 'm3';
+  CTeDataSets.Campo('qCarga_276').AsString := '1';
+  CTeDataSets.SalvarParte('infQ');
+
+  CTeDataSets.IncluirParte('veicNovos');
+  CTeDataSets.Campo('chassi_445').AsString := '';
+  CTeDataSets.Campo('cCor_446').AsString := '';
+  CTeDataSets.Campo('xCor_447').AsString := '';
+  CTeDataSets.Campo('cMod_448').AsString := '';
+  CTeDataSets.Campo('vUnit_449').AsString := '';
+  CTeDataSets.Campo('vFrete_450').AsString := '';
+  CTeDataSets.SalvarParte('veicNovos');
+
+  CTeDataSets.IncluirParte('Duto');
+  CTeDataSets.Campo('vTar_435').AsString := '854562319.548745';
+  CTeDataSets.Campo('dIni_1401').AsString := '2017-04-24';
+  CTeDataSets.Campo('dFim_1402').AsString := '2017-04-25';
+  CTeDataSets.Campo('classDuto_1574').AsString := '1';
+  CTeDataSets.Campo('tpContratacao_1575').AsString := '2';
+  CTeDataSets.Campo('codPontoEntrada_1576').AsString := '123';
+  CTeDataSets.Campo('codPontoSaida_1577').AsString := '456';
+  CTeDataSets.Campo('nContrato_1578').AsString := '789';
+  CTeDataSets.SalvarParte('Duto');
+  
+  CTeDataSets.IncluirParte('autXML');
+  CTeDataSets.Campo('CNPJ_814').AsString := '00000000000000';
+  CTeDataSets.SalvarParte('autXML');
+
+  CTeDataSets.Salvar;
+  
+  _XML := CTeDataSets.LoteCTe;
+  mmXml.Text := _XML;
+end;  
+
+end.
+
+
