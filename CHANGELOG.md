@@ -1,4 +1,15 @@
-﻿## [14.1.0.1]
+﻿## [14.1.1.6]
+
+**Novidades**
+
+* [DSML-1907](https://tecnospeed.atlassian.net/browse/DSML-1907) - Atualizando XSD's com a [NT 2025.001 V1.09](https://blog.tecnospeed.com.br/nota-tecnica-reforma-tributaria-ct-e/).
+* [DSML-1928](https://tecnospeed.atlassian.net/browse/DSML-1928) - Compatibilizando o componente com a[ ](https://blog.tecnospeed.com.br/eventos-reforma-tributaria-nfe-nfce/)[NT 2025.001 v1.10](https://blog.tecnospeed.com.br/nota-tecnica-reforma-tributaria-ct-e/)
+
+**Correções**
+
+* [DSML-1923](https://tecnospeed.atlassian.net/browse/DSML-1923) - Corrigindo validações excessivas do tecnoaccount no CTe
+
+## [14.1.0.1]
 
 
 **Novidades**
@@ -262,6 +273,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
