@@ -1,4 +1,14 @@
-﻿## [14.1.1.6]
+﻿## [14.1.1.17]
+
+**Novidades**
+
+* DSML-1982 - Compatibilizando o componente CTe com o Delphi 13 Florence
+
+**Correções**
+
+* DSML-2059 - Mapeando o campo vTotDFe_1621 no CTe Simplificado
+
+## [14.1.1.6]
 
 **Novidades**
 
@@ -273,6 +283,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
