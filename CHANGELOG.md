@@ -1,4 +1,14 @@
-﻿## [14.1.1.17]
+﻿## [14.1.1.20]
+
+**Novidades**
+
+* [ODSML-14356](http://odoo.tecnospeed.local/odoo/project/40/tasks/14356) - Ajustes da Reforma Tributaria [2026.001](https://blog.tecnospeed.com.br/nt-2026-001-vinculacao-de-pagamento-cte/)
+* [ODSML-27930](http://odoo.tecnospeed.local/odoo/project/40/tasks/27930) - Criação dos eventos de vínculo de pagamento e cancelamento do vínculo de pagamento
+* [ODSML-28418](http://odoo.tecnospeed.local/odoo/project/40/tasks/28418) - Criação do campo referente a infDCe (Informações da Declaração de Conteúdo Eletrônica)
+* [ODSML-27960](http://odoo.tecnospeed.local/odoo/project/40/tasks/27960) - Adequação NT 2025.001 V1.14a
+
+
+## [14.1.1.17]
 
 **Novidades**
 
@@ -283,6 +293,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
