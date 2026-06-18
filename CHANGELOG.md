@@ -1,4 +1,10 @@
-﻿## [14.1.1.20]
+﻿## [14.1.1.24]
+
+**Correções**
+
+* [ODSML-29234](http://odoo.tecnospeed.local/odoo/project/40/tasks/29234) - Ajustando impressão do CTe Simplificado.
+
+## [14.1.1.20]
 
 **Novidades**
 
@@ -293,6 +299,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
