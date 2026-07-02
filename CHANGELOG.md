@@ -1,4 +1,8 @@
-﻿## [14.1.1.24]
+﻿## [14.1.1.28]
+
+* [ODSML-28715](http://odoo.tecnospeed.local/odoo/project/40/tasks/28715) -  NT 2025.001 v 1.04 - Compatibilizando o componente CTe para aceitar CNPJ alfanumerico
+
+## [14.1.1.24]
 
 **Correções**
 
@@ -299,6 +303,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
