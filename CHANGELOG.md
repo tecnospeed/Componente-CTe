@@ -1,4 +1,10 @@
-﻿## [14.1.1.28]
+﻿## [14.1.1.30]
+
+**Correções**
+
+* [ODSML-31582](http://odoo.tecnospeed.local/odoo/action-527/351/project.task/31582) - Correção da regra de validação da chave de NF-e transportada para aceitar CPF com prefixo 000 que é o formato padrão da chave de acesso quando o emitente é pessoa física
+
+## [14.1.1.28]
 
 * [ODSML-28715](http://odoo.tecnospeed.local/odoo/project/40/tasks/28715) -  NT 2025.001 v 1.04 - Compatibilizando o componente CTe para aceitar CNPJ alfanumerico
 
@@ -303,6 +309,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
