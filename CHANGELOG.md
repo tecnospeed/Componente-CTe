@@ -1,4 +1,10 @@
-﻿## [14.1.1.30]
+﻿## [15.1.0.1]
+
+**Novidades**
+
+* [ODSML-30521](http://odoo.tecnospeed.local/odoo/project/40/tasks/30521) - Compatibilizando o componente CTe com a [NT 2026.002](https://blog.tecnospeed.com.br/nt-2026-002-reforma-tributaria-ct-e/).
+
+## [14.1.1.30]
 
 **Correções**
 
@@ -309,6 +315,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
