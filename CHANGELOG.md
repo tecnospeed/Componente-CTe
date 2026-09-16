@@ -1,4 +1,10 @@
-﻿## [15.1.0.1]
+﻿## [15.1.0.8]
+
+**Correções**
+
+* [ODSML-27423](http://odoo.tecnospeed.local/odoo/project/40/tasks/27423) - Ajustes na geração de XML por JSON quando houver grupos com recorrência.
+
+## [15.1.0.1]
 
 **Novidades**
 
@@ -315,6 +321,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
