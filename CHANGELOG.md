@@ -1,4 +1,16 @@
-﻿## [15.1.0.8]
+﻿## [15.1.0.13]
+
+**Correções**
+
+* [ODSML-14384](http://odoo.tecnospeed.local/odoo/project/40/tasks/14384) - Adicionada a coluna Série/NºDoc. na impressão dos documentos originários do DACTE em todos os modelos de impressão.
+* [ODSML-14377](http://odoo.tecnospeed.local/odoo/project/40/tasks/14377) - Corrigindo geração de XML destinatário para ser utilizado nos métodos de impressão.
+* [ODSML-17753](http://odoo.tecnospeed.local/odoo/project/40/tasks/17753) - Corrigindo emissão de EPEC para o CTe.
+
+**Novidades**
+
+* ODSML-32135 - Criando validações de CNPJ antes do envio.
+
+## [15.1.0.8]
 
 **Correções**
 
@@ -321,6 +333,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
