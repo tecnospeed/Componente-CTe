@@ -1,4 +1,9 @@
-﻿## [15.1.0.13]
+﻿## [15.1.0.18]
+
+**Novidades**
+* [ODSML-36053](http://odoo.tecnospeed.local/odoo/project/40/tasks/36053) - Compatibilizando o componente CTe com a NT [2026.004 v1.00](https://blog.tecnospeed.com.br/nt-rtc-2026-004-cte/).
+
+## [15.1.0.13]
 
 **Correções**
 
@@ -333,6 +338,7 @@ LEIAME VS 12.1.60.5224
 
 **Correções**
   DC-1154 - Alterar funções que estavam sem retorno padrão.
+
 
 
 
